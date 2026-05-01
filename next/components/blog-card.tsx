@@ -1,10 +1,8 @@
 import { format } from 'date-fns';
 import { Link } from 'next-view-transitions';
-import Image from 'next/image';
 import React from 'react';
 import Balancer from 'react-wrap-balancer';
 
-import { Logo } from './logo';
 import { BlurImage } from '@/components/blur-image';
 import { strapiImage } from '@/lib/strapi/strapiImage';
 import { truncate } from '@/lib/utils';
@@ -19,54 +17,48 @@ export const BlogCard = ({
 }) => {
   return (
     <Link
-      className="shadow-derek grid grid-cols-1 md:grid-cols-2  rounded-3xl group border border-transparent hover:border-neutral-800 w-full hover:bg-neutral-900  overflow-hidden  hover:scale-[1.02] transition duration-200"
+      className="group grid w-full grid-cols-1 overflow-hidden rounded-3xl border border-[#E2E2E2] bg-white shadow-derek transition duration-200 hover:scale-[1.02] hover:border-[#003F6B]/40 hover:shadow-md md:grid-cols-2"
       href={`/${locale}/blog/${article.slug}`}
     >
-      <div className="">
+      <div>
         {article.image ? (
           <BlurImage
             src={strapiImage(article.image.url)}
             alt={article.title}
             height="1200"
             width="1200"
-            className="h-full object-cover object-top w-full rounded-3xl"
+            className="h-full w-full rounded-3xl object-cover object-top"
           />
         ) : (
-          <div className="h-full flex items-center justify-center group-hover:bg-neutral-900">
-            {/* <Logo /> */}
-          </div>
+          <div className="flex h-full min-h-64 items-center justify-center bg-[#F8F9FA]" />
         )}
       </div>
-      <div className="p-4 md:p-8 group-hover:bg-neutral-900 flex flex-col justify-between">
+
+      <div className="flex flex-col justify-between p-4 md:p-8">
         <div>
-          <div className="flex gap-4 flex-wrap mb-4">
+          <div className="mb-4 flex flex-wrap gap-4">
             {article.categories?.map((category, idx) => (
               <p
                 key={`category-${idx}`}
-                className="text-xs font-bold text-muted px-4 py-2 rounded-full bg-neutral-800 capitalize"
+                className="rounded-full bg-[#003F6B]/10 px-4 py-2 text-xs font-semibold capitalize text-[#003F6B]"
               >
                 {category.name}
               </p>
             ))}
           </div>
-          <p className="text-lg md:text-4xl font-bold mb-4">
+
+          <p className="mb-4 text-lg font-bold text-[#2B2B2B] transition duration-200 group-hover:text-[#003F6B] md:text-4xl">
             <Balancer>{article.title}</Balancer>
           </p>
-          <p className="text-left text-base md:text-xl mt-2 text-muted">
+
+          <p className="mt-2 text-left text-base text-[#666666] md:text-xl">
             {truncate(article.description, 500)}
           </p>
         </div>
-        <div className="flex space-x-2 items-center  mt-6">
-          {/* <Image
-            src={article.authorAvatar}
-            alt={article.author}
-            width={20}
-            height={20}
-            className="rounded-full h-5 w-5"
-          /> */}
-          {/* <p className="text-sm font-normal text-muted">{article.author}</p> */}
-          <div className="h-1 w-1 bg-neutral-300 rounded-full"></div>
-          <p className="text-neutral-300 text-sm  max-w-xl group-hover:text-white transition duration-200">
+
+        <div className="mt-6 flex items-center space-x-2">
+          <div className="h-1 w-1 rounded-full bg-[#306B8C]" />
+          <p className="max-w-xl text-sm text-[#666666] transition duration-200 group-hover:text-[#003F6B]">
             {format(new Date(article.publishedAt), 'MMMM dd, yyyy')}
           </p>
         </div>
@@ -84,54 +76,48 @@ export const BlogCardVertical = ({
 }) => {
   return (
     <Link
-      className="shadow-derek   rounded-3xl group border border-transparent hover:border-neutral-800 w-full hover:bg-neutral-900  overflow-hidden  hover:scale-[1.02] transition duration-200"
+      className="group w-full overflow-hidden rounded-3xl border border-[#E2E2E2] bg-white shadow-derek transition duration-200 hover:scale-[1.02] hover:border-[#003F6B]/40 hover:shadow-md"
       href={`/${locale}/blog/${article.slug}`}
     >
-      <div className="">
+      <div>
         {article.image ? (
           <BlurImage
             src={strapiImage(article.image.url || '')}
             alt={article.title}
             height="800"
             width="800"
-            className=" h-64 md:h-96 object-cover object-top w-full rounded-3xl"
+            className="h-64 w-full rounded-3xl object-cover object-top md:h-96"
           />
         ) : (
-          <div className=" h-64 md:h-96 flex items-center justify-center group-hover:bg-neutral-900">
-            {/* <Logo /> */}
-          </div>
+          <div className="flex h-64 items-center justify-center bg-[#F8F9FA] md:h-96" />
         )}
       </div>
-      <div className="p-4 md:p-8 group-hover:bg-neutral-900 flex flex-col justify-between">
+
+      <div className="flex flex-col justify-between p-4 md:p-8">
         <div>
-          <div className="flex gap-4 flex-wrap mb-4">
+          <div className="mb-4 flex flex-wrap gap-4">
             {article.categories?.map((category, idx) => (
               <p
                 key={`category-${idx}`}
-                className="text-xs font-bold text-muted px-4 py-2 rounded-full bg-neutral-800 capitalize"
+                className="rounded-full bg-[#003F6B]/10 px-4 py-2 text-xs font-semibold capitalize text-[#003F6B]"
               >
                 {category.name}
               </p>
             ))}
           </div>
-          <p className="text-lg md:text-xl font-bold mb-4">
+
+          <p className="mb-4 text-lg font-bold text-[#2B2B2B] transition duration-200 group-hover:text-[#003F6B] md:text-xl">
             <Balancer>{article.title}</Balancer>
           </p>
-          <p className="text-left text-sm md:text-base mt-2 text-muted">
+
+          <p className="mt-2 text-left text-sm text-[#666666] md:text-base">
             {truncate(article.description, 500)}
           </p>
         </div>
-        <div className="flex space-x-2 items-center  mt-6">
-          {/* <Image
-            src={article.authorAvatar}
-            alt={article.author}
-            width={20}
-            height={20}
-            className="rounded-full h-5 w-5"
-          />
-          <p className="text-sm font-normal text-muted">{article.author}</p> */}
-          <div className="h-1 w-1 bg-neutral-300 rounded-full"></div>
-          <p className="text-neutral-300 text-sm  max-w-xl group-hover:text-white transition duration-200">
+
+        <div className="mt-6 flex items-center space-x-2">
+          <div className="h-1 w-1 rounded-full bg-[#306B8C]" />
+          <p className="max-w-xl text-sm text-[#666666] transition duration-200 group-hover:text-[#003F6B]">
             {format(new Date(article.publishedAt), 'MMMM dd, yyyy')}
           </p>
         </div>

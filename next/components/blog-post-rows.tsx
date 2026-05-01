@@ -22,28 +22,29 @@ export const BlogPostRows = ({
   });
 
   const [results, setResults] = useState(articles);
+
   useEffect(() => {
     const results = searcher.search(search);
     setResults(results);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [search]);
+  }, [search, articles]);
 
   return (
     <div className="w-full py-20">
-      <div className="flex sm:flex-row flex-col justify-between gap-4 items-center mb-10">
-        <p className="text-2xl font-bold text-white">More Posts</p>
+      <div className="mb-10 flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-center">
+        <p className="text-2xl font-bold text-[#2B2B2B]">More Posts</p>
+
         <input
           type="text"
           value={search}
           onChange={(e) => setSearch(e.target.value)}
           placeholder="Search articles"
-          className="text-sm min-w-full sm:min-w-96  p-2 rounded-md bg-neutral-800 border-none  focus:ring-0 focus:outline-none outline-none text-neutral-200 placeholder-neutral-400"
+          className="min-w-full rounded-md border border-[#E2E2E2] bg-white p-2 text-sm text-[#2B2B2B] placeholder-[#999999] outline-none transition focus:border-[#003F6B] sm:min-w-96"
         />
       </div>
 
-      <div className="divide-y divide-neutral-800">
+      <div className="divide-y divide-[#E2E2E2]">
         {results.length === 0 ? (
-          <p className="text-neutral-400 text-center p-4">No results found</p>
+          <p className="p-4 text-center text-[#666666]">No results found</p>
         ) : (
           results.map((article, index) => (
             <BlogPostRow
@@ -68,27 +69,29 @@ export const BlogPostRow = ({
   return (
     <Link
       href={`/${locale}/blog/${article.slug}`}
-      key={`${article.slug}`}
-      className="flex md:flex-row flex-col items-start justify-between md:items-center group py-4"
+      className="group flex flex-col items-start justify-between py-4 transition hover:bg-[#F8F9FA] md:flex-row md:items-center md:px-2 md:rounded-xl"
     >
       <div>
-        <p className="text-neutral-300 text-lg font-medium group-hover:text-white transition duration-200">
+        <p className="text-lg font-medium text-[#2B2B2B] transition group-hover:text-[#003F6B]">
           {article.title}
         </p>
-        <p className="text-neutral-300 text-sm mt-2 max-w-xl group-hover:text-white transition duration-200">
+
+        <p className="mt-2 max-w-xl text-sm text-[#666666]">
           {truncate(article.description, 80)}
         </p>
 
-        <div className="flex gap-2 items-center my-4">
-          <p className="text-neutral-300 text-sm  max-w-xl group-hover:text-white transition duration-200">
+        <div className="my-4 flex items-center gap-2">
+          <p className="text-sm text-[#666666]">
             {format(new Date(article.publishedAt), 'MMMM dd, yyyy')}
           </p>
-          <div className="h-1 w-1 rounded-full bg-neutral-800"></div>
-          <div className="flex gap-4 flex-wrap ">
+
+          <div className="h-1 w-1 rounded-full bg-[#306B8C]" />
+
+          <div className="flex flex-wrap gap-2">
             {article.categories?.map((category, idx) => (
               <p
                 key={`category-${idx}`}
-                className="text-xs font-bold text-muted px-2 py-1 rounded-full bg-neutral-800 capitalize"
+                className="rounded-full bg-[#003F6B]/10 px-2 py-1 text-xs font-semibold capitalize text-[#003F6B]"
               >
                 {category.name}
               </p>
@@ -96,13 +99,6 @@ export const BlogPostRow = ({
           </div>
         </div>
       </div>
-      {/* <Image
-        src={blog.authorAvatar}
-        alt={blog.author}
-        width={40}
-        height={40}
-        className="rounded-full md:h-10 md:w-10 h-6 w-6 mt-4 md:mt-0 object-cover"
-      /> */}
     </Link>
   );
 };
