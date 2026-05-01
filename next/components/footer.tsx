@@ -12,11 +12,11 @@ export const Footer = async ({
 }) => {
   return (
     <footer className="relative border-t border-[#E2E2E2] bg-[#F8F9FA]">
-      <div className="mx-auto max-w-7xl px-8 pt-20 pb-32">
+      <div className="mx-auto max-w-7xl px-8 pb-32 pt-20">
         <div className="flex flex-col items-start justify-between gap-12 text-sm text-[#666666] sm:flex-row">
           <div>
             <div className="mb-4 mr-4 md:flex">
-              {data?.logo?.image && <Logo image={data?.logo?.image} />}
+              {data?.logo?.image && <Logo image={data.logo.image} locale={locale} />}
             </div>
 
             <div className="max-w-xs text-[#666666]">
@@ -25,40 +25,6 @@ export const Footer = async ({
 
             <div className="mt-4 text-[#666666]">
               {data?.copyright}
-            </div>
-
-            <div className="mt-10">
-              Designed and Developed by{' '}
-              <a className="text-[#2B2B2B] underline hover:text-[#003F6B]" href="https://aceternity.com">
-                About us
-              </a>{' '}
-              &{' '}
-              <a className="text-[#2B2B2B] underline hover:text-[#003F6B]" href="https://strapi.io">
-                Dienstleistungen
-              </a>
-            </div>
-
-            <div className="mt-2">
-              built with{' '}
-              <a className="text-[#2B2B2B] underline hover:text-[#003F6B]" href="https://strapi.io">
-                Impressum
-              </a>
-              ,{' '}
-              <a className="text-[#2B2B2B] underline hover:text-[#003F6B]" href="https://nextjs.org">
-                Datenschutz
-              </a>
-              ,{' '}
-              <a className="text-[#2B2B2B] underline hover:text-[#003F6B]" href="https://tailwindcss.com">
-                Tailwind CSS
-              </a>
-              ,{' '}
-              <a className="text-[#2B2B2B] underline hover:text-[#003F6B]" href="https://framer.com/motion">
-                Motion Animation Lib
-              </a>
-              , and{' '}
-              <a className="text-[#2B2B2B] underline hover:text-[#003F6B]" href="https://ui.aceternity.com">
-                Aceternity UI
-              </a>
             </div>
           </div>
 
@@ -77,7 +43,7 @@ const LinkSection = ({
   links,
   locale,
 }: {
-  links: { text: string; URL: never | string }[];
+  links: { text: string; URL: string }[];
   locale: string;
 }) => (
   <div className="mt-4 flex flex-col justify-center space-y-4">

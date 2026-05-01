@@ -20,28 +20,30 @@ export const Featured = ({
 
   return (
     <div className="py-20">
-      <h2 className="text-2xl md:text-4xl font-medium bg-clip-text text-transparent bg-gradient-to-b from-neutral-800 via-white to-white mb-2">
+      <h2 className="mb-2 text-2xl font-semibold text-[#2B2B2B] md:text-4xl">
         {heading || 'Featured'}
       </h2>
-      <p className="text-neutral-500 text-lg mt-4 mb-10">
+
+      <p className="mb-10 mt-4 text-lg text-[#666666]">
         {sub_heading || 'Pick from our most popular collection'}
       </p>
-      <div className="grid grid-cols-1 md:grid-cols-3  gap-10">
+
+      <div className="grid grid-cols-1 gap-10 md:grid-cols-3">
         <div className="md:col-span-2">
-          {firstProduct ? (
+          {firstProduct && (
             <FeaturedItem product={firstProduct} locale={locale} />
-          ) : null}
+          )}
         </div>
+
         <div className="grid gap-10">
-          {secondProduct ? (
+          {secondProduct && (
             <FeaturedItem product={secondProduct} locale={locale} />
-          ) : null}
-          {thirdProduct ? (
+          )}
+          {thirdProduct && (
             <FeaturedItem product={thirdProduct} locale={locale} />
-          ) : null}
+          )}
         </div>
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-10"></div>
     </div>
   );
 };
@@ -56,22 +58,27 @@ const FeaturedItem = ({
   return (
     <Link
       href={`/${locale}/products/${product.slug}` as never}
-      className="group border border-neutral-800 rounded-md overflow-hidden relative block"
+      className="group relative block overflow-hidden rounded-2xl border border-[#E2E2E2] bg-white transition duration-200 hover:shadow-md hover:border-[#003F6B]/30"
     >
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black transition-all duration-200 z-30" />
-      <div className="absolute text-sm top-4 right-2 md:top-10 md:right-10 z-40 bg-white rounded-full pr-1 pl-4 py-1 text-black font-medium flex gap-4 items-center">
+      {/* dezentes Overlay statt schwarz */}
+      <div className="pointer-events-none absolute inset-0 z-10 bg-gradient-to-b from-transparent to-white/40 opacity-0 transition duration-200 group-hover:opacity-100" />
+
+      {/* Product Info */}
+      <div className="absolute right-4 top-4 z-20 flex items-center gap-3 rounded-full bg-white/90 px-4 py-2 text-sm font-medium text-[#2B2B2B] shadow-sm backdrop-blur">
         <span>{product.name}</span>
-        <span className="bg-gradient-to-r from-purple-500 via-indigo-500 to-blue-500 text-white px-2 py-1 rounded-full">
+
+        <span className="rounded-full bg-[#003F6B]/10 px-2 py-1 text-[#003F6B]">
           {locale === 'fr' ? '€' : '$'}
           {formatNumber(product.price, locale)}
         </span>
       </div>
+
       <StrapiImage
-        src={product.images?.[0].url}
+        src={product.images?.[0]?.url}
         alt={product.name}
         width={1000}
         height={1000}
-        className="h-full w-full object-cover group-hover:scale-105 transition duration-200"
+        className="h-full w-full object-cover transition duration-300 group-hover:scale-105"
       />
     </Link>
   );

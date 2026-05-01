@@ -1,7 +1,6 @@
 'use client';
 
 import { IconTrash } from '@tabler/icons-react';
-import Image from 'next/image';
 import React from 'react';
 
 import {
@@ -27,82 +26,98 @@ export default function AddToCartModal({
   locale?: string;
 }) {
   const { items, updateQuantity, getCartTotal, removeFromCart } = useCart();
+
   return (
     <Modal>
-      <ModalTrigger onClick={onClick} className="mt-10 w-full">
+      <ModalTrigger
+        onClick={onClick}
+        className="mt-10 w-full rounded-md bg-[#E2E2E2] px-4 py-2 text-sm font-medium text-[#2B2B2B] transition hover:bg-[#2B2B2B] hover:text-white"
+      >
         {ctaText}
       </ModalTrigger>
+
       <ModalBody>
         <ModalContent>
-          <h4 className="text-lg md:text-2xl text-neutral-600 font-bold text-center mb-8">
+          <h4 className="mb-8 text-center text-lg font-bold text-[#2B2B2B] md:text-2xl">
             Your cart
           </h4>
 
           {!items.length && (
-            <p className="text-center text-neutral-700">
+            <p className="text-center text-[#666666]">
               Your cart is empty. Please purchase something.
             </p>
           )}
-          <div className="flex flex-col  divide-y divide-neutral-100">
+
+          <div className="flex flex-col divide-y divide-[#E2E2E2]">
             {items.map((item, index) => (
               <div
-                key={'purchased-item' + index}
-                className="flex gap-2 justify-between items-center py-4"
+                key={`purchased-item-${index}`}
+                className="flex items-center justify-between gap-2 py-4"
               >
                 <div className="flex items-center gap-4">
                   <StrapiImage
-                    src={item.product?.images?.[0].url}
+                    src={item.product?.images?.[0]?.url}
                     alt={item.product.name}
                     width={60}
                     height={60}
-                    className="rounded-lg hidden md:block"
+                    className="hidden rounded-lg border border-[#E2E2E2] object-cover md:block"
                   />
-                  <span className="text-black text-sm md:text-base font-medium">
-                    {' '}
+
+                  <span className="text-sm font-medium text-[#2B2B2B] md:text-base">
                     {item.product.name}
                   </span>
                 </div>
+
                 <div className="flex items-center">
                   <input
                     type="number"
                     value={item.quantity}
                     onChange={(e) => {
-                      const value = parseInt(e.target.value);
+                      const value = parseInt(e.target.value, 10);
                       if (value > 0) {
                         updateQuantity(item.product, value);
                       }
                     }}
                     min="1"
                     step="1"
-                    className="w-16 p-2 h-full rounded-md focus:outline-none bg-neutral-50 border border-neutral-100 focus:bg-neutral-100 text-black mr-4"
+                    className="mr-4 h-full w-16 rounded-md border border-[#E2E2E2] bg-[#F8F9FA] p-2 text-[#2B2B2B] outline-none transition focus:border-[#003F6B] focus:bg-white"
                     style={{
                       WebkitAppearance: 'none',
                       MozAppearance: 'textfield',
                     }}
                   />
-                  <div className="text-black text-sm font-medium w-20">
+
+                  <div className="w-20 text-sm font-medium text-[#2B2B2B]">
                     {locale === 'fr' ? '€' : '$'}
                     {formatNumber(item.product.price, locale)}
                   </div>
-                  <button onClick={() => removeFromCart(item.product.id)}>
-                    <IconTrash className="w-4 h-4 text-neutral-900" />
+
+                  <button
+                    type="button"
+                    onClick={() => removeFromCart(item.product.id)}
+                    className="rounded-md p-2 text-[#666666] transition hover:bg-[#E2E2E2] hover:text-[#2B2B2B]"
+                    aria-label="Remove item"
+                  >
+                    <IconTrash className="h-4 w-4" />
                   </button>
                 </div>
               </div>
             ))}
           </div>
         </ModalContent>
-        <ModalFooter className="gap-4 items-center">
-          <div className="text-neutral-700 ">
+
+        <ModalFooter className="items-center gap-4">
+          <div className="text-[#666666]">
             Total{' '}
-            <span className="font-bold">
+            <span className="font-bold text-[#2B2B2B]">
               {locale === 'fr' ? '€' : '$'}
               {formatNumber(getCartTotal(), locale)}
             </span>
           </div>
+
           <button
             disabled={!items.length}
-            className="bg-black text-white disabled:opacity-50 disabled:cursor-not-allowed text-sm px-2 py-1 rounded-md border border-black w-28"
+            className="w-28 rounded-md border border-[#E2E2E2] bg-[#E2E2E2] px-2 py-1 text-sm font-medium text-[#2B2B2B] transition hover:bg-[#2B2B2B] hover:text-white disabled:cursor-not-allowed disabled:opacity-50"
           >
             {buyNowText}
           </button>

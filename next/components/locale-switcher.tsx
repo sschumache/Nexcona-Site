@@ -12,22 +12,22 @@ export function LocaleSwitcher({ currentLocale }: { currentLocale: string }) {
   const { localizedSlugs } = state;
 
   const pathname = usePathname();
-  const segments = pathname.split('/');
 
   const generateLocalizedPath = (locale: string): string => {
     if (!pathname) return `/${locale}`;
+
+    const segments = pathname.split('/');
 
     if (segments.length <= 2) {
       return `/${locale}`;
     }
 
+    segments[1] = locale;
+
     if (localizedSlugs[locale]) {
-      segments[1] = locale;
       segments[segments.length - 1] = localizedSlugs[locale];
-      return segments.join('/');
     }
 
-    segments[1] = locale;
     return segments.join('/');
   };
 
@@ -40,13 +40,13 @@ export function LocaleSwitcher({ currentLocale }: { currentLocale: string }) {
           <Link key={locale} href={generateLocalizedPath(locale)}>
             <div
               className={cn(
-                'flex h-7 w-8 cursor-pointer items-center justify-center rounded-md text-sm font-medium transition duration-200',
+                'flex h-7 w-8 cursor-pointer items-center justify-center rounded-md text-sm font-medium uppercase transition duration-200',
                 isActive
                   ? 'bg-white text-[#2B2B2B] shadow-sm'
                   : 'text-[#666666] hover:bg-[#E2E2E2] hover:text-[#2B2B2B]'
               )}
             >
-              {locale.toUpperCase()}
+              {locale}
             </div>
           </Link>
         );

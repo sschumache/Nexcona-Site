@@ -18,16 +18,18 @@ export const ProductItems = ({
 }) => {
   return (
     <div className="py-20">
-      <h2 className="text-2xl md:text-4xl font-medium bg-clip-text text-transparent bg-gradient-to-b from-neutral-800 via-white to-white mb-2">
+      <h2 className="mb-2 text-2xl font-semibold text-[#2B2B2B] md:text-4xl">
         {heading || 'Popular'}
       </h2>
-      <p className="text-neutral-500 text-lg mt-4 mb-10">
+
+      <p className="mb-10 mt-4 text-lg text-[#666666]">
         {sub_heading || 'Recently rose to popularity'}
       </p>
-      <div className="grid grid-cols-1 md:grid-cols-3  gap-20">
+
+      <div className="grid grid-cols-1 gap-10 md:grid-cols-3 md:gap-12">
         {products.map((product) => (
           <ProductItem
-            key={'regular-product-item' + product.id}
+            key={`regular-product-item-${product.id}`}
             product={product}
             locale={locale}
           />
@@ -47,31 +49,31 @@ const ProductItem = ({
   return (
     <Link
       href={`/${locale}/products/${product.slug}` as never}
-      className="group relative block"
+      className="group block rounded-2xl border border-[#E2E2E2] bg-white p-3 transition duration-200 hover:border-[#003F6B]/30 hover:shadow-md"
     >
-      <div className="relative border border-neutral-800  rounded-md overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black transition-all duration-200 z-30" />
-
+      <div className="relative overflow-hidden rounded-xl bg-[#F8F9FA]">
         <StrapiImage
-          src={product?.images?.[0].url}
+          src={product?.images?.[0]?.url}
           alt={product.name}
           width={600}
           height={600}
-          className="h-full w-full object-cover group-hover:scale-105 transition duration-200"
+          className="h-full w-full object-cover transition duration-300 group-hover:scale-105"
         />
       </div>
 
-      <div className="mt-8">
-        <div className="flex justify-between">
-          <span className="text-white text-base font-medium">
+      <div className="mt-5">
+        <div className="flex items-start justify-between gap-4">
+          <span className="text-base font-medium text-[#2B2B2B] transition group-hover:text-[#003F6B]">
             {product.name}
           </span>
-          <span className="bg-white text-black shadow-derek text-xs px-2 py-1 rounded-full">
+
+          <span className="shrink-0 rounded-full bg-[#003F6B]/10 px-2 py-1 text-xs font-semibold text-[#003F6B]">
             {locale === 'fr' ? '€' : '$'}
             {formatNumber(product.price, locale)}
           </span>
         </div>
-        <p className="text-neutral-400 text-sm mt-4">
+
+        <p className="mt-4 text-sm text-[#666666]">
           {truncate(product.description, 100)}
         </p>
       </div>
