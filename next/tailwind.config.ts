@@ -15,7 +15,7 @@ const config: Config = {
     extend: {
       colors: {
         charcoal: '#2B2B2B',
-        lightblack: '#003F6B',
+        lightblack: '#242424',
         secondary: '#E2E2E2',
         muted: '#666666',
 
@@ -26,6 +26,7 @@ const config: Config = {
         'light-grey': '#E2E2E2',
         white: '#FFFFFF',
       },
+      
       boxShadow: {
         derek: `0px 0px 0px 1px rgb(0 0 0 / 0.06),
         0px 1px 1px -0.5px rgb(0 0 0 / 0.06),
