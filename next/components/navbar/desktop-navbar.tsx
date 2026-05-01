@@ -37,24 +37,22 @@ export const DesktopNavbar = ({
   locale,
 }: Props) => {
   const { scrollY } = useScroll();
-
   const [showBackground, setShowBackground] = useState(false);
 
   useMotionValueEvent(scrollY, 'change', (value) => {
-    if (value > 100) {
-      setShowBackground(true);
-    } else {
-      setShowBackground(false);
-    }
+    setShowBackground(value > 100);
   });
+
   return (
     <motion.div
       className={cn(
-        'w-full flex relative justify-between px-4 py-3 rounded-md  transition duration-200 bg-transparent mx-auto'
+        'relative mx-auto flex w-full justify-between rounded-md border px-4 py-3 transition duration-200',
+        showBackground
+          ? 'border-[#E2E2E2] bg-[#F8F9FA]/90 shadow-sm backdrop-blur-md'
+          : 'border-transparent bg-[#F8F9FA]'
       )}
       animate={{
         width: showBackground ? '80%' : '100%',
-        background: showBackground ? 'var(--neutral-900)' : 'transparent',
       }}
       transition={{
         duration: 0.4,
@@ -63,18 +61,21 @@ export const DesktopNavbar = ({
       <AnimatePresence>
         {showBackground && (
           <motion.div
-            key={String(showBackground)}
+            key="navbar-background"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
             transition={{
-              duration: 1,
+              duration: 0.4,
             }}
-            className="absolute inset-0 h-full w-full bg-neutral-900 pointer-events-none [mask-image:linear-gradient(to_bottom,white,transparent,white)] rounded-full"
+            className="pointer-events-none absolute inset-0 h-full w-full rounded-md bg-[#F8F9FA]/60"
           />
         )}
       </AnimatePresence>
-      <div className="flex flex-row gap-2 items-center">
+
+      <div className="relative z-10 flex flex-row items-center gap-2">
         <Logo locale={locale} image={logo?.image} />
+
         <div className="flex items-center gap-1.5">
           {leftNavbarItems.map((item) => (
             <NavbarItem
@@ -87,7 +88,8 @@ export const DesktopNavbar = ({
           ))}
         </div>
       </div>
-      <div className="flex space-x-2 items-center">
+
+      <div className="relative z-10 flex items-center space-x-2">
         <LocaleSwitcher currentLocale={locale} />
 
         {rightNavbarItems.map((item, index) => (

@@ -2,9 +2,8 @@
 
 import { useMotionValueEvent, useScroll } from 'framer-motion';
 import { Link } from 'next-view-transitions';
-import { useState } from 'react';
-import { IoIosMenu } from 'react-icons/io';
-import { IoIosClose } from 'react-icons/io';
+import { Fragment, useState } from 'react';
+import { IoIosMenu, IoIosClose } from 'react-icons/io';
 
 import { LocaleSwitcher } from '../locale-switcher';
 import { Button } from '@/components/elements/button';
@@ -33,82 +32,82 @@ export const MobileNavbar = ({
   locale,
 }: Props) => {
   const [open, setOpen] = useState(false);
-
   const { scrollY } = useScroll();
-
   const [showBackground, setShowBackground] = useState(false);
 
   useMotionValueEvent(scrollY, 'change', (value) => {
-    if (value > 100) {
-      setShowBackground(true);
-    } else {
-      setShowBackground(false);
-    }
+    setShowBackground(value > 100);
   });
 
   return (
     <div
       className={cn(
-        'flex justify-between bg-transparent items-center w-full rounded-md px-2.5 py-1.5 transition duration-200',
-        showBackground &&
-          ' bg-neutral-900  shadow-[0px_-2px_0px_0px_var(--neutral-800),0px_2px_0px_0px_var(--neutral-800)]'
+        'flex w-full items-center justify-between rounded-md border px-3 py-2 transition duration-200',
+        showBackground
+          ? 'border-[#E2E2E2] bg-[#F8F9FA]/90 shadow-sm backdrop-blur-md'
+          : 'border-transparent bg-[#F8F9FA]'
       )}
     >
-      <Logo image={logo?.image} />
+      <Logo locale={locale} image={logo?.image} />
 
-      <IoIosMenu
-        className="text-white h-6 w-6"
-        onClick={() => setOpen(!open)}
-      />
+      <button
+        type="button"
+        aria-label="Menü öffnen"
+        onClick={() => setOpen(true)}
+        className="rounded-md p-1 text-[#2B2B2B] transition hover:bg-[#E2E2E2]"
+      >
+        <IoIosMenu className="h-7 w-7" />
+      </button>
 
       {open && (
-        <div className="fixed inset-0 bg-black z-50 flex flex-col items-start justify-start space-y-10  pt-5  text-xl text-zinc-600  transition duration-200 hover:text-zinc-800">
-          <div className="flex items-center justify-between w-full px-5">
+        <div className="fixed inset-0 z-50 flex flex-col items-start justify-start bg-[#F8F9FA] pt-5 text-[#2B2B2B]">
+          <div className="flex w-full items-center justify-between px-5">
             <Logo locale={locale} image={logo?.image} />
+
             <div className="flex items-center space-x-2">
               <LocaleSwitcher currentLocale={locale} />
-              <IoIosClose
-                className="h-8 w-8 text-white"
-                onClick={() => setOpen(!open)}
-              />
+
+              <button
+                type="button"
+                aria-label="Menü schliessen"
+                onClick={() => setOpen(false)}
+                className="rounded-md p-1 text-[#2B2B2B] transition hover:bg-[#E2E2E2]"
+              >
+                <IoIosClose className="h-8 w-8" />
+              </button>
             </div>
           </div>
-          <div className="flex flex-col items-start justify-start gap-[14px] px-8">
+
+          <div className="mt-10 flex flex-col items-start justify-start gap-4 px-8">
             {leftNavbarItems.map((navItem: any, idx: number) => (
-              <>
-                {navItem.children && navItem.children.length > 0 ? (
-                  <>
-                    {navItem.children.map((childNavItem: any, idx: number) => (
+              <Fragment key={`nav-item-${idx}`}>
+                {navItem.children && navItem.children.length > 0
+                  ? navItem.children.map((childNavItem: any, childIdx: number) => (
                       <Link
-                        key={`link=${idx}`}
+                        key={`child-link-${childIdx}`}
                         href={`/${locale}${childNavItem.URL}`}
                         onClick={() => setOpen(false)}
-                        className="relative max-w-[15rem] text-left text-2xl"
+                        className="relative max-w-[15rem] text-left text-2xl font-medium text-[#2B2B2B] transition hover:text-[#003F6B]"
                         suppressHydrationWarning
                       >
-                        <span className="block text-white">
-                          {childNavItem.text}
-                        </span>
+                        {childNavItem.text}
                       </Link>
-                    ))}
-                  </>
-                ) : (
-                  <Link
-                    key={`link=${idx}`}
-                    href={`/${locale}${navItem.URL}`}
-                    onClick={() => setOpen(false)}
-                    className="relative"
-                    suppressHydrationWarning
-                  >
-                    <span className="block text-[26px] text-white">
+                    ))
+                  : (
+                    <Link
+                      href={`/${locale}${navItem.URL}`}
+                      onClick={() => setOpen(false)}
+                      className="relative text-[26px] font-medium text-[#2B2B2B] transition hover:text-[#003F6B]"
+                      suppressHydrationWarning
+                    >
                       {navItem.text}
-                    </span>
-                  </Link>
-                )}
-              </>
+                    </Link>
+                  )}
+              </Fragment>
             ))}
           </div>
-          <div className="flex flex-row w-full items-start gap-2.5  px-8 py-4 ">
+
+          <div className="mt-auto flex w-full flex-col items-stretch gap-2.5 px-8 pb-8">
             {rightNavbarItems.map((item, index) => (
               <Button
                 key={item.text}
@@ -117,6 +116,8 @@ export const MobileNavbar = ({
                 }
                 as={Link}
                 href={`/${locale}${item.URL}`}
+                onClick={() => setOpen(false)}
+                className="w-full"
               >
                 {item.text}
               </Button>
