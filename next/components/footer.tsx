@@ -23,21 +23,21 @@ export const Footer = async ({
             <div className="mt-10">
               Designed and Developed by{' '}
               <a className="text-white underline" href="https://aceternity.com">
-                Aceternity
+                About us
               </a>{' '}
               &{' '}
               <a className="text-white underline" href="https://strapi.io">
-                Strapi
+                Dienstleistungen
               </a>
             </div>
             <div className="mt-2">
               built with{' '}
               <a className="text-white underline" href="https://strapi.io">
-                Strapi
+                Impressum
               </a>
               ,{' '}
               <a className="text-white underline" href="https://nextjs.org">
-                Next.js
+                Datenschutz
               </a>
               ,{' '}
               <a
