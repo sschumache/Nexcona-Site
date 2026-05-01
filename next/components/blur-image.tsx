@@ -10,11 +10,11 @@ export const BlurImage = ({
   width,
   height,
   alt,
-  layout,
+  priority = false,
   className,
   ...rest
 }: React.ComponentProps<typeof Image>) => {
-  const [isLoading, setLoading] = useState(true);
+  const [isLoading, setLoading] = useState(!priority);
 
   return (
     <Image
@@ -27,11 +27,10 @@ export const BlurImage = ({
       src={src}
       width={width}
       height={height}
-      loading="lazy"
+      loading={priority ? 'eager' : 'lazy'}
       decoding="async"
-      blurDataURL={src as string}
-      layout={layout}
-      alt={alt ? alt : 'Avatar'}
+      alt={alt || 'Image'}
+      priority={priority}
       {...rest}
     />
   );

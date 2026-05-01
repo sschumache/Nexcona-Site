@@ -12,7 +12,7 @@ export const Card = ({
   return (
     <div
       className={cn(
-        'p-8 rounded-3xl border border-[rgba(255,255,255,0.10)] bg-[rgba(40,40,40,0.30)] shadow-[2px_4px_16px_0px_rgba(248,248,248,0.06)_inset] group',
+        'group rounded-3xl border border-[#E2E2E2] bg-white p-8 shadow-sm transition duration-200 hover:shadow-md hover:border-[#003F6B]/30',
         className
       )}
     >
@@ -29,7 +29,12 @@ export const CardTitle = ({
   className?: string;
 }) => {
   return (
-    <h3 className={cn('text-lg font-semibold text-white py-2', className)}>
+    <h3
+      className={cn(
+        'py-2 text-lg font-semibold text-[#2B2B2B] transition group-hover:text-[#003F6B]',
+        className
+      )}
+    >
       {children}
     </h3>
   );
@@ -44,7 +49,10 @@ export const CardDescription = ({
 }) => {
   return (
     <p
-      className={cn('text-sm font-normal text-neutral-400 max-w-sm', className)}
+      className={cn(
+        'max-w-sm text-sm font-normal text-[#666666]',
+        className
+      )}
     >
       {children}
     </p>
@@ -63,10 +71,10 @@ export const CardSkeletonContainer = ({
   return (
     <div
       className={cn(
-        'h-[20rem] rounded-xl z-40',
+        'z-40 h-[20rem] rounded-xl bg-[#F8F9FA]',
         className,
         showGradient &&
-          ' bg-[rgba(40,40,40,0.30)] [mask-image:radial-gradient(50%_50%_at_50%_50%,white_0%,transparent_100%)]'
+          '[mask-image:radial-gradient(50%_50%_at_50%_50%,white_0%,transparent_100%)]'
       )}
     >
       {children}

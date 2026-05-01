@@ -1,11 +1,10 @@
 'use client';
 
-import { usePathname, useRouter } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
 export function DraftModeBanner() {
   const router = useRouter();
-  const pathname = usePathname();
   const [isExiting, setIsExiting] = useState(false);
   const [isIframe, setIsIframe] = useState(true);
 
@@ -15,6 +14,7 @@ export function DraftModeBanner() {
 
   const handleExitDraft = async () => {
     setIsExiting(true);
+
     try {
       await fetch('/api/exit-preview');
       router.refresh();
@@ -24,20 +24,19 @@ export function DraftModeBanner() {
     }
   };
 
-  if (isIframe) {
-    return null;
-  }
+  if (isIframe) return null;
 
   return (
-    <div className="fixed bottom-4 right-4 z-50 bg-secondary text-black px-6 py-3 rounded-lg shadow-lg flex items-center gap-4">
+    <div className="fixed bottom-4 right-4 z-50 flex items-center gap-4 rounded-lg border border-[#E2E2E2] bg-[#F8F9FA] px-6 py-3 text-[#2B2B2B] shadow-lg">
       <div className="flex items-center gap-2">
-        <span className="inline-block w-4 h-4 bg-black rounded-full animate-pulse" />
+        <span className="inline-block h-4 w-4 animate-pulse rounded-full bg-[#003F6B]" />
         <span className="font-semibold">Draft Mode</span>
       </div>
+
       <button
         onClick={handleExitDraft}
         disabled={isExiting}
-        className="bg-black text-white px-4 py-1 rounded text-sm font-medium hover:bg-gray-800 disabled:opacity-50 transition-colors"
+        className="rounded bg-[#E2E2E2] px-4 py-1 text-sm font-medium text-[#2B2B2B] transition-colors hover:bg-[#2B2B2B] hover:text-white disabled:opacity-50"
       >
         {isExiting ? 'Exiting...' : 'Exit Draft'}
       </button>
