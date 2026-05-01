@@ -20,29 +20,29 @@ export const Button: React.FC<ButtonProps> = ({
   children,
   ...props
 }) => {
+  const baseClass =
+    'relative z-10 inline-flex items-center justify-center rounded-md px-4 py-2 text-sm md:text-sm font-medium transition duration-200';
+
   const variantClass =
     variant === 'simple'
-      ? 'bg-secondary relative z-10 bg-transparent hover:border-secondary/50 hover:bg-secondary/10  border border-transparent text-white text-sm md:text-sm transition font-medium duration-200  rounded-md px-4 py-2  flex items-center justify-center'
+      ? 'bg-transparent text-[#2B2B2B] hover:bg-[#E2E2E2]'
       : variant === 'outline'
-        ? 'bg-white relative z-10 hover:bg-secondary/90 hover:shadow-xl  text-black border border-black hover:text-black text-sm md:text-sm transition font-medium duration-200  rounded-md px-4 py-2  flex items-center justify-center'
+        ? 'bg-white text-[#2B2B2B] border border-[#E2E2E2] hover:bg-[#2B2B2B] hover:text-white hover:border-[#2B2B2B]'
         : variant === 'primary'
-          ? 'bg-secondary relative z-10 hover:bg-secondary/90  border border-secondary text-black text-sm md:text-sm transition font-medium duration-200  rounded-md px-4 py-2  flex items-center justify-center shadow-[0px_-1px_0px_0px_#FFFFFF60_inset,_0px_1px_0px_0px_#FFFFFF60_inset  hover:-translate-y-1 active:-translate-y-0'
+          ? 'bg-[#E2E2E2] text-[#2B2B2B] border border-[#E2E2E2] hover:bg-[#2B2B2B] hover:text-white hover:border-[#2B2B2B] hover:-translate-y-1 active:translate-y-0'
           : variant === 'muted'
-            ? 'bg-neutral-800 relative z-10 hover:bg-neutral-900  border border-transparent text-white text-sm md:text-sm transition font-medium duration-200  rounded-md px-4 py-2  flex items-center justify-center shadow-[0px_1px_0px_0px_#FFFFFF20_inset]'
+            ? 'bg-[#F8F9FA] text-[#666666] border border-[#E2E2E2] hover:bg-[#2B2B2B] hover:text-white hover:border-[#2B2B2B]'
             : '';
+
   const Element = Tag as any;
 
   return (
     <Element
-      className={cn(
-        'bg-secondary relative z-10 bg-transparent hover:border-secondary hover:bg-secondary/50  border border-transparent text-white text-sm md:text-sm transition font-medium duration-200  rounded-md px-4 py-2  flex items-center justify-center ',
-        variantClass,
-        className
-      )}
+      className={cn(baseClass, variantClass, className)}
       {...props}
       suppressHydrationWarning
     >
-      {children ?? `Get Started`}
+      {children ?? 'Get Started'}
     </Element>
   );
 };

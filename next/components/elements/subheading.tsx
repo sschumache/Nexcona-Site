@@ -6,23 +6,24 @@ import { cn } from '@/lib/utils';
 
 export const Subheading = ({
   className,
-  as: Tag = 'h2',
+  as: Tag = 'p',
   children,
   ...props
 }: {
   className?: string;
   as?: any;
   children: any;
-  props?: React.HTMLAttributes<HTMLHeadingElement>;
+  props?: React.HTMLAttributes<HTMLParagraphElement>;
 } & MotionProps &
-  React.HTMLAttributes<HTMLHeadingElement>) => {
+  React.HTMLAttributes<HTMLParagraphElement>) => {
   return (
     <Tag
       className={cn(
-        'text-sm md:text-base  max-w-4xl text-left my-4 mx-auto',
-        'text-muted text-center font-normal',
+        'text-sm md:text-base max-w-3xl mx-auto my-4 text-center',
+        'text-[#666666] leading-relaxed',
         className
       )}
+      {...props}
     >
       <Balancer>{children}</Balancer>
     </Tag>

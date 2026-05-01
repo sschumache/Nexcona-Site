@@ -24,12 +24,12 @@ export const Heading = ({
     xl: 'text-4xl md:text-6xl md:leading-none',
     '2xl': 'text-5xl md:text-7xl md:leading-none',
   };
+
   return (
     <Tag
       className={cn(
-        'text-3xl md:text-5xl md:leading-tight max-w-5xl mx-auto text-center tracking-tight',
-        'font-medium',
-        'bg-clip-text text-transparent bg-gradient-to-b from-neutral-800 via-white to-white',
+        'max-w-5xl mx-auto text-center tracking-tight',
+        'font-medium text-[#2B2B2B]',
         sizeVariants[size],
         className
       )}
