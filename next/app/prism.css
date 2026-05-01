@@ -1,14 +1,24 @@
+/* =========================
+   CODE BLOCK BASE
+========================= */
 pre[class*='language-'] {
-  color: theme('colors.zinc.100');
+  color: #E2E2E2;
+  background: #2B2B2B;
+  padding: 1rem;
+  border-radius: 12px;
+  overflow-x: auto;
 }
 
+/* =========================
+   SYNTAX HIGHLIGHTING
+========================= */
 .token.tag,
 .token.class-name,
 .token.selector,
 .token.selector .class,
 .token.selector.class,
 .token.function {
-  color: theme('colors.blue.400');
+  color: #306B8C;
 }
 
 .token.attr-name,
@@ -16,32 +26,33 @@ pre[class*='language-'] {
 .token.rule,
 .token.pseudo-class,
 .token.important {
-  color: theme('colors.slate.300');
+  color: #FFFFFF;
 }
 
 .token.module {
-  color: theme('colors.emerald.400');
+  color: #003F6B;
 }
 
 .token.attr-value,
 .token.class,
 .token.string,
 .token.property {
-  color: theme('colors.teal.300');
+  color: #E2E2E2;
 }
 
 .token.punctuation,
 .token.attr-equals {
-  color: theme('colors.zinc.500');
+  color: #666666;
 }
 
 .token.unit,
 .language-css .token.function {
-  color: theme('colors.sky.200');
+  color: #306B8C;
 }
 
 .token.comment,
 .token.operator,
 .token.combinator {
-  color: theme('colors.zinc.400');
+  color: #666666;
+  font-style: italic;
 }
