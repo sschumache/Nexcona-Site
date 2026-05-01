@@ -2,57 +2,67 @@
    CODE BLOCK BASE
 ========================= */
 pre[class*='language-'] {
-  color: #E2E2E2;
-  background: #2B2B2B;
+  color: #2B2B2B;
+  background: #F8F9FA; /* leichtes Grau statt hartem Weiss */
   padding: 1rem;
   border-radius: 12px;
   overflow-x: auto;
+  border: 1px solid #E2E2E2;
 }
 
 /* =========================
    SYNTAX HIGHLIGHTING
 ========================= */
+
+/* Tags / Functions */
 .token.tag,
 .token.class-name,
 .token.selector,
 .token.selector .class,
 .token.selector.class,
 .token.function {
-  color: #306B8C;
+  color: #003F6B; /* Primary */
 }
 
+/* Keywords */
 .token.attr-name,
 .token.keyword,
 .token.rule,
 .token.pseudo-class,
 .token.important {
-  color: #FFFFFF;
+  color: #2B2B2B;
+  font-weight: 500;
 }
 
+/* Modules / Imports */
 .token.module {
-  color: #003F6B;
+  color: #306B8C; /* Secondary */
 }
 
+/* Strings / Values */
 .token.attr-value,
 .token.class,
 .token.string,
 .token.property {
-  color: #E2E2E2;
+  color: #1F2930;
 }
 
+/* Punctuation */
 .token.punctuation,
 .token.attr-equals {
-  color: #666666;
+  color: #999999;
 }
 
+/* Units */
 .token.unit,
 .language-css .token.function {
   color: #306B8C;
 }
 
+/* Comments */
 .token.comment,
 .token.operator,
 .token.combinator {
-  color: #666666;
+  color: #999999;
   font-style: italic;
 }
