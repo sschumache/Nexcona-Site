@@ -34,13 +34,15 @@ export function LocaleSwitcher({ currentLocale, locales = [] }: {
     }
 
     if (localizedSlugs[locale]) {
-      segments[1] = locale;
-      segments[segments.length - 1] = localizedSlugs[locale];
-      return segments.join('/');
+      const newSegments = [...segments];
+      newSegments[1] = locale;
+      newSegments[newSegments.length - 1] = localizedSlugs[locale];
+      return newSegments.join('/');
     }
 
-    segments[1] = locale;
-    return segments.join('/');
+    const newSegments = [...segments];
+    newSegments[1] = locale;
+    return newSegments.join('/');
   };
 
   return (
