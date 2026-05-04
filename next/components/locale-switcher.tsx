@@ -7,41 +7,46 @@ import React from 'react';
 import { useSlugContext } from '@/app/context/SlugContext';
 import { cn } from '@/lib/utils';
 
-export function LocaleSwitcher({ currentLocale, locales }: { 
+const localeLabels: Record<string, string> = {
+  'en': 'EN',
+  'de-CH': 'DE',
+};
+
+export function LocaleSwitcher({ currentLocale, locales = [] }: { 
   currentLocale: string;
-  locales: string[];
-}) 
-  {  
+  locales?: string[];
+}) {  
   const { state } = useSlugContext();
   const { localizedSlugs } = state;
 
-  const pathname = usePathname(); // Current path
-  const segments = pathname.split('/'); // Split path into segments
+  const pathname = usePathname();
+  const segments = pathname.split('/');
 
-  // Generate localized path for each locale
+  // Use localizedSlugs keys if available, otherwise fall back to locales prop
+  const availableLocales = Object.keys(localizedSlugs).length > 0 
+    ? Object.keys(localizedSlugs) 
+    : locales;
+
   const generateLocalizedPath = (locale: string): string => {
-    if (!pathname) return `/${locale}`; // Default to root path for the locale
+    if (!pathname) return `/${locale}`;
 
-    // Handle homepage (e.g., "/en" -> "/fr")
     if (segments.length <= 2) {
       return `/${locale}`;
     }
 
-    // Handle dynamic paths (e.g., "/en/blog/[slug]")
     if (localizedSlugs[locale]) {
-      segments[1] = locale; // Replace the locale
-      segments[segments.length - 1] = localizedSlugs[locale]; // Replace slug if available
+      segments[1] = locale;
+      segments[segments.length - 1] = localizedSlugs[locale];
       return segments.join('/');
     }
 
-    // Fallback to replace only the locale
     segments[1] = locale;
     return segments.join('/');
   };
 
   return (
     <div className="flex gap-2 p-1 rounded-md">
-      {Object.keys(localizedSlugs).map((locale) => (
+      {availableLocales.map((locale) => (
         <Link key={locale} href={generateLocalizedPath(locale)}>
           <div
             className={cn(
@@ -51,7 +56,7 @@ export function LocaleSwitcher({ currentLocale, locales }: {
                 : ''
             )}
           >
-            {locale}
+            {localeLabels[locale] ?? locale.toUpperCase()}
           </div>
         </Link>
       ))}

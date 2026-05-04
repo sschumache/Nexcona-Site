@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 
 import { DesktopNavbar } from './desktop-navbar';
 import { MobileNavbar } from './mobile-navbar';
+import { i18n } from '@/i18n.config';
 
 export function Navbar({
   data,
@@ -14,6 +15,8 @@ export function Navbar({
   locale: string;
   hasBanner?: boolean;
 }) {
+  const locales = [...i18n.locales];
+
   return (
     <motion.nav
       className={`fixed inset-x-0 z-50 mx-auto w-[95%] max-w-7xl ${
@@ -24,6 +27,7 @@ export function Navbar({
         {data?.left_navbar_items && (
           <DesktopNavbar
             locale={locale}
+            locales={locales}
             leftNavbarItems={data.left_navbar_items}
             rightNavbarItems={data.right_navbar_items}
             logo={data.logo}
@@ -35,6 +39,7 @@ export function Navbar({
         {data?.left_navbar_items && (
           <MobileNavbar
             locale={locale}
+            locales={locales}
             leftNavbarItems={data.left_navbar_items}
             rightNavbarItems={data.right_navbar_items}
             logo={data.logo}
