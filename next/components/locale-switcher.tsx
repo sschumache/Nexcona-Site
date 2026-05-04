@@ -22,7 +22,6 @@ export function LocaleSwitcher({ currentLocale, locales = [] }: {
   const pathname = usePathname();
   const segments = pathname.split('/');
 
-  // Use localizedSlugs keys if available, otherwise fall back to locales prop
   const availableLocales = Object.keys(localizedSlugs).length > 0 
     ? Object.keys(localizedSlugs) 
     : locales;
@@ -50,11 +49,26 @@ export function LocaleSwitcher({ currentLocale, locales = [] }: {
         <Link key={locale} href={generateLocalizedPath(locale)}>
           <div
             className={cn(
-              'flex cursor-pointer items-center justify-center text-sm leading-[110%] w-8 py-1 rounded-md hover:bg-neutral-800 hover:text-white/80 text-white hover:shadow-[0px_1px_0px_0px_var(--neutral-600)_inset] transition duration-200',
+              'flex cursor-pointer items-center justify-center text-sm leading-[110%] w-8 py-1 rounded-md transition duration-200',
               locale === currentLocale
-                ? 'bg-neutral-800 text-white shadow-[0px_1px_0px_0px_var(--neutral-600)_inset]'
-                : ''
+                ? 'text-white'
+                : 'text-[#2B2B2B] hover:text-white'
             )}
+            style={
+              locale === currentLocale
+                ? { backgroundColor: '#00AEEF' }
+                : undefined
+            }
+            onMouseEnter={(e) => {
+              if (locale !== currentLocale) {
+                e.currentTarget.style.backgroundColor = '#00AEEF';
+              }
+            }}
+            onMouseLeave={(e) => {
+              if (locale !== currentLocale) {
+                e.currentTarget.style.backgroundColor = '';
+              }
+            }}
           >
             {localeLabels[locale] ?? locale.toUpperCase()}
           </div>
