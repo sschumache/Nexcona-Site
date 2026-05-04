@@ -28,6 +28,18 @@ type Props = {
   }[];
   logo: any;
   locale: string;
+  locales?: any[];
+};
+
+const withLocale = (url: string, locale?: string) => {
+  if (!url) return locale ? `/${locale}` : '/';
+  if (url.startsWith('http')) return url;
+
+  const cleanUrl = url.startsWith('/') ? url : `/${url}`;
+
+  if (!locale) return cleanUrl;
+
+  return `/${locale}${cleanUrl}`;
 };
 
 export const DesktopNavbar = ({
@@ -35,6 +47,7 @@ export const DesktopNavbar = ({
   rightNavbarItems,
   logo,
   locale,
+  locales = [],
 }: Props) => {
   const { scrollY } = useScroll();
   const [showBackground, setShowBackground] = useState(false);
@@ -65,9 +78,7 @@ export const DesktopNavbar = ({
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{
-              duration: 0.4,
-            }}
+            transition={{ duration: 0.4 }}
             className="pointer-events-none absolute inset-0 h-full w-full rounded-md bg-[#F8F9FA]/60"
           />
         )}
@@ -79,7 +90,7 @@ export const DesktopNavbar = ({
         <div className="flex items-center gap-1.5">
           {leftNavbarItems.map((item) => (
             <NavbarItem
-              href={`/${locale}${item.URL}` as never}
+              href={withLocale(item.URL, locale) as never}
               key={item.text}
               target={item.target}
             >
@@ -90,7 +101,7 @@ export const DesktopNavbar = ({
       </div>
 
       <div className="relative z-10 flex items-center space-x-2">
-        <LocaleSwitcher currentLocale={locale} />
+        <LocaleSwitcher currentLocale={locale} locales={locales} />
 
         {rightNavbarItems.map((item, index) => (
           <Button
@@ -99,7 +110,7 @@ export const DesktopNavbar = ({
               index === rightNavbarItems.length - 1 ? 'primary' : 'simple'
             }
             as={Link}
-            href={`/${locale}${item.URL}`}
+            href={withLocale(item.URL, locale)}
           >
             {item.text}
           </Button>

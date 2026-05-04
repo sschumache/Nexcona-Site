@@ -15,6 +15,11 @@ type Props = {
     URL: string;
     text: string;
     target?: string;
+    children?: {
+      URL: string;
+      text: string;
+      target?: string;
+    }[];
   }[];
   rightNavbarItems: {
     URL: string;
@@ -23,6 +28,18 @@ type Props = {
   }[];
   logo: any;
   locale: string;
+  locales?: any[];
+};
+
+const withLocale = (url: string, locale?: string) => {
+  if (!url) return locale ? `/${locale}` : '/';
+  if (url.startsWith('http')) return url;
+
+  const cleanUrl = url.startsWith('/') ? url : `/${url}`;
+
+  if (!locale) return cleanUrl;
+
+  return `/${locale}${cleanUrl}`;
 };
 
 export const MobileNavbar = ({
@@ -30,6 +47,7 @@ export const MobileNavbar = ({
   rightNavbarItems,
   logo,
   locale,
+  locales = [],
 }: Props) => {
   const [open, setOpen] = useState(false);
   const { scrollY } = useScroll();
@@ -65,7 +83,7 @@ export const MobileNavbar = ({
             <Logo locale={locale} image={logo?.image} />
 
             <div className="flex items-center space-x-2">
-              <LocaleSwitcher currentLocale={locale} />
+              <LocaleSwitcher currentLocale={locale} locales={locales} />
 
               <button
                 type="button"
@@ -79,13 +97,14 @@ export const MobileNavbar = ({
           </div>
 
           <div className="mt-10 flex flex-col items-start justify-start gap-4 px-8">
-            {leftNavbarItems.map((navItem: any, idx: number) => (
+            {leftNavbarItems.map((navItem, idx) => (
               <Fragment key={`nav-item-${idx}`}>
                 {navItem.children && navItem.children.length > 0
-                  ? navItem.children.map((childNavItem: any, childIdx: number) => (
+                  ? navItem.children.map((childNavItem, childIdx) => (
                       <Link
                         key={`child-link-${childIdx}`}
-                        href={`/${locale}${childNavItem.URL}`}
+                        href={withLocale(childNavItem.URL, locale)}
+                        target={childNavItem.target}
                         onClick={() => setOpen(false)}
                         className="relative max-w-[15rem] text-left text-2xl font-medium text-[#2B2B2B] transition hover:text-[#003F6B]"
                         suppressHydrationWarning
@@ -95,7 +114,8 @@ export const MobileNavbar = ({
                     ))
                   : (
                     <Link
-                      href={`/${locale}${navItem.URL}`}
+                      href={withLocale(navItem.URL, locale)}
+                      target={navItem.target}
                       onClick={() => setOpen(false)}
                       className="relative text-[26px] font-medium text-[#2B2B2B] transition hover:text-[#003F6B]"
                       suppressHydrationWarning
@@ -115,7 +135,8 @@ export const MobileNavbar = ({
                   index === rightNavbarItems.length - 1 ? 'primary' : 'simple'
                 }
                 as={Link}
-                href={`/${locale}${item.URL}`}
+                href={withLocale(item.URL, locale)}
+                target={item.target}
                 onClick={() => setOpen(false)}
                 className="w-full"
               >

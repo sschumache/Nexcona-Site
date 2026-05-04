@@ -1,54 +1,101 @@
 'use client';
 
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import React from 'react';
 
 import { useSlugContext } from '@/app/context/SlugContext';
 import { cn } from '@/lib/utils';
 
-export function LocaleSwitcher({ currentLocale }: { currentLocale: string }) {
+type LocaleItem = string | {
+  code?: string;
+  locale?: string;
+  name?: string;
+  isDefault?: boolean;
+};
+
+const getLocaleCode = (item: LocaleItem) =>
+  typeof item === 'string' ? item : item.code || item.locale || '';
+
+const getLocaleName = (item: LocaleItem) =>
+  typeof item === 'string' ? item.toUpperCase() : item.name || getLocaleCode(item).toUpperCase();
+
+const getFlag = (locale: string) => {
+  const normalized = locale.toLowerCase();
+
+  const flags: Record<string, string> = {
+    ch: '🇨🇭',
+    de: '🇩🇪',
+    en: '🇬🇧',
+    fr: '🇫🇷',
+    it: '🇮🇹',
+  };
+
+  return flags[normalized] || '🌐';
+};
+
+export function LocaleSwitcher({
+  currentLocale,
+  locales = [],
+}: {
+  currentLocale: string;
+  locales?: LocaleItem[];
+}) {
+  const router = useRouter();
+  const pathname = usePathname();
+
   const { state } = useSlugContext();
   const { localizedSlugs } = state;
 
-  const pathname = usePathname();
+  const normalizedLocales = locales
+    .map((item) => ({
+      code: getLocaleCode(item),
+      name: getLocaleName(item),
+    }))
+    .filter((item) => item.code);
 
-  const generateLocalizedPath = (locale: string): string => {
-    if (!pathname) return `/${locale}`;
+  if (!normalizedLocales.length) return null;
 
-    const segments = pathname.split('/');
+  const generateLocalizedPath = (nextLocale: string): string => {
+    if (!pathname) return `/${nextLocale}`;
 
-    if (segments.length <= 2) {
-      return `/${locale}`;
+    const segments = pathname.split('/').filter(Boolean);
+    const firstSegment = segments[0];
+    const localeCodes = normalizedLocales.map((item) => item.code);
+
+    if (localeCodes.includes(firstSegment)) {
+      segments[0] = nextLocale;
+    } else {
+      segments.unshift(nextLocale);
     }
 
-    segments[1] = locale;
-
-    if (localizedSlugs[locale]) {
-      segments[segments.length - 1] = localizedSlugs[locale];
+    if (localizedSlugs?.[nextLocale] && segments.length > 1) {
+      segments[segments.length - 1] = localizedSlugs[nextLocale];
     }
 
-    return segments.join('/');
+    return `/${segments.join('/')}`;
   };
 
   return (
-    <div className="flex gap-1 rounded-md border border-[#E2E2E2] bg-[#F8F9FA] p-1">
-      {Object.keys(localizedSlugs).map((locale) => {
-        const isActive = locale === currentLocale;
+    <div className="flex items-center gap-1 rounded-full border border-[#E2E2E2] bg-[#F8F9FA] p-1">
+      {normalizedLocales.map((locale) => {
+        const isActive = locale.code === currentLocale;
 
         return (
-          <Link key={locale} href={generateLocalizedPath(locale)}>
-            <div
-              className={cn(
-                'flex h-7 w-8 cursor-pointer items-center justify-center rounded-md text-sm font-medium uppercase transition duration-200',
-                isActive
-                  ? 'bg-white text-[#2B2B2B] shadow-sm'
-                  : 'text-[#666666] hover:bg-[#E2E2E2] hover:text-[#2B2B2B]'
-              )}
-            >
-              {locale}
-            </div>
-          </Link>
+          <button
+            key={locale.code}
+            type="button"
+            onClick={() => router.push(generateLocalizedPath(locale.code))}
+            className={cn(
+              'flex items-center gap-1.5 rounded-full px-3 py-1.5 text-sm font-medium transition',
+              isActive
+                ? 'bg-white text-[#2B2B2B] shadow-sm'
+                : 'text-[#666666] hover:bg-[#E2E2E2] hover:text-[#2B2B2B]'
+            )}
+            aria-current={isActive ? 'true' : undefined}
+          >
+            <span>{getFlag(locale.code)}</span>
+            <span className="uppercase">{locale.code}</span>
+          </button>
         );
       })}
     </div>

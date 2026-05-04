@@ -81,26 +81,19 @@ export const SkeletonTwo = () => {
           style={{
             opacity: 1 - sliderXPercent * 0.015,
           }}
-          className="mt-10 ml-4"
-        >
-          1 satellite
+          className="mt-10 ml-4">1 satellite
         </Container>
         <Container
           style={{
             opacity: 1 - sliderXPercent * 0.015,
           }}
-          className="mt-4 ml-10 group-hover:border-secondary transition duration-200 "
-        >
-          7 satellites
+          className="mt-4 ml-10 group-hover:border-secondary transition duration-200 ">7 satellites
         </Container>
         <Container
           style={{
             opacity: 1 - sliderXPercent * 0.015,
           }}
-          className="mt-4 ml-4"
-        >
-          4 rockets
-        </Container>
+          className="mt-4 ml-4">4 rockets</Container>
 
         <Cursor
           className="top-60 left-12 group-hover:left-32 group-hover:top-44"
@@ -114,7 +107,6 @@ export const SkeletonTwo = () => {
     </div>
   );
 };
-
 const Cover = ({
   children,
   className,
