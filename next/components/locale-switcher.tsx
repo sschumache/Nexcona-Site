@@ -7,7 +7,11 @@ import React from 'react';
 import { useSlugContext } from '@/app/context/SlugContext';
 import { cn } from '@/lib/utils';
 
-export function LocaleSwitcher({ currentLocale }: { currentLocale: string }) {
+export function LocaleSwitcher({ currentLocale, locales }: { 
+  currentLocale: string;
+  locales: string[];
+}) 
+  {  
   const { state } = useSlugContext();
   const { localizedSlugs } = state;
 

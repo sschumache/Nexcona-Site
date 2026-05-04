@@ -28,7 +28,7 @@ type Props = {
   }[];
   logo: any;
   locale: string;
-  locales?: any[];
+  locales?: string[];
 };
 
 const withLocale = (url: string, locale?: string) => {
@@ -100,8 +100,8 @@ export const DesktopNavbar = ({
         </div>
       </div>
 
-    <div className="flex space-x-2 items-center">
-        <LocaleSwitcher currentLocale={locale} />
+      <div className="flex space-x-2 items-center">
+        <LocaleSwitcher currentLocale={locale} locales={locales} />
 
         {rightNavbarItems.map((item, index) => (
           <Button
