@@ -19,6 +19,7 @@ const config: Config = {
 
         primary: '#003F6B',
         'primary-soft': '#306B8C',
+        'primary-light': '#00AEEF',
 
         light: '#E2E2E2',
         grey: '#666666',

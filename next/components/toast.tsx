@@ -24,9 +24,9 @@ export const AIToast = () => {
     >
       <div className="flex items-start">
         <div className="flex-1">
-          <p className="text-sm font-medium text-gray-900">Strapi AI</p>
+          <p className="text-sm font-medium text-gray-900">Kontaktiere uns</p>
           <p className="mt-1 text-sm text-gray-500">
-            You can now try Strapi AI for yourself!
+            Für Fragen und andere Anliegen stehen wir Ihnen gerne zur Verfügung.
           </p>
           <div className="mt-3">
             <a
@@ -37,7 +37,7 @@ export const AIToast = () => {
               rel="noopener noreferrer"
               className="inline-flex items-center gap-1.5 text-sm font-medium text-gray-900 hover:text-gray-700 transition-colors"
             >
-              Go to docs
+              Schreibe uns!
               <ExternalLinkIcon className="h-3.5 w-3.5" />
             </a>
           </div>

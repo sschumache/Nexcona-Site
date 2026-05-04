@@ -29,19 +29,9 @@ export const Footer = async ({
           </div>
             <div className="mt-10">
               Designed and Developed by{' '}
-              <a className="text-white underline" href="https://nexcona.ch">
+              <a className="text-primary-light underline" href="https://nexcona.ch">
                 Nexcona IT GmbH
               </a>{' '}
-            </div>
-            <div className="mt-2">
-              built with{' '}
-              <a className="text-white underline" href="https://strapi.io">
-                Strapi
-              </a>
-              ,{' '}
-              <a className="text-white underline" href="https://nextjs.org">
-                Next.js
-              </a>
             </div>
 
           <div className="grid grid-cols-1 gap-8 sm:grid-cols-3 sm:gap-10">
