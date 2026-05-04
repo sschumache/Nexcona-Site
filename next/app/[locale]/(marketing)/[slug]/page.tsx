@@ -1,4 +1,5 @@
 import { Metadata } from 'next';
+import { notFound } from 'next/navigation';
 
 import ClientSlugHandler from '../ClientSlugHandler';
 import PageContent from '@/lib/shared/PageContent';
@@ -10,14 +11,18 @@ export async function generateMetadata({
   params,
 }: LocaleSlugParamsProps): Promise<Metadata> {
   const { slug, locale } = await params;
-  const [pageData] = await fetchCollectionType('pages', {
-    filters: {
-      slug: {
-        $eq: slug,
-      },
-      locale: locale,
-    },
+
+  let [pageData] = await fetchCollectionType('pages', {
+    filters: { slug: { $eq: slug }, locale },
   });
+
+  if (!pageData) {
+    [pageData] = await fetchCollectionType('pages', {
+      filters: { slug: { $eq: slug }, locale: 'en' },
+    });
+  }
+
+  if (!pageData) return {};
 
   const seo = pageData.seo;
   const metadata = generateMetadataObject(seo);
@@ -26,14 +31,18 @@ export async function generateMetadata({
 
 export default async function Page({ params }: LocaleSlugParamsProps) {
   const { slug, locale } = await params;
-  const [pageData] = await fetchCollectionType('pages', {
-    filters: {
-      slug: {
-        $eq: slug,
-      },
-      locale: locale,
-    },
+
+  let [pageData] = await fetchCollectionType('pages', {
+    filters: { slug: { $eq: slug }, locale },
   });
+
+  if (!pageData) {
+    [pageData] = await fetchCollectionType('pages', {
+      filters: { slug: { $eq: slug }, locale: 'en' },
+    });
+  }
+
+  if (!pageData) return notFound();
 
   const localizedSlugs = pageData.localizations?.reduce(
     (acc: Record<string, string>, localization: any) => {
@@ -41,7 +50,7 @@ export default async function Page({ params }: LocaleSlugParamsProps) {
       return acc;
     },
     { [locale]: slug }
-  );
+  ) ?? { [locale]: slug };
 
   return (
     <>
