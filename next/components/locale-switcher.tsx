@@ -1,103 +1,56 @@
 'use client';
 
-import { usePathname, useRouter } from 'next/navigation';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import React from 'react';
 
 import { useSlugContext } from '@/app/context/SlugContext';
 import { cn } from '@/lib/utils';
 
-type LocaleItem = string | {
-  code?: string;
-  locale?: string;
-  name?: string;
-  isDefault?: boolean;
-};
-
-const getLocaleCode = (item: LocaleItem) =>
-  typeof item === 'string' ? item : item.code || item.locale || '';
-
-const getLocaleName = (item: LocaleItem) =>
-  typeof item === 'string' ? item.toUpperCase() : item.name || getLocaleCode(item).toUpperCase();
-
-const getFlag = (locale: string) => {
-  const normalized = locale.toLowerCase();
-
-  const flags: Record<string, string> = {
-    ch: '🇨🇭',
-    de: '🇩🇪',
-    en: '🇬🇧',
-    fr: '🇫🇷',
-    it: '🇮🇹',
-  };
-
-  return flags[normalized] || '🌐';
-};
-
-export function LocaleSwitcher({
-  currentLocale,
-  locales = [],
-}: {
-  currentLocale: string;
-  locales?: LocaleItem[];
-}) {
-  const router = useRouter();
-  const pathname = usePathname();
-
+export function LocaleSwitcher({ currentLocale }: { currentLocale: string }) {
   const { state } = useSlugContext();
   const { localizedSlugs } = state;
 
-  const normalizedLocales = locales
-    .map((item) => ({
-      code: getLocaleCode(item),
-      name: getLocaleName(item),
-    }))
-    .filter((item) => item.code);
+  const pathname = usePathname(); // Current path
+  const segments = pathname.split('/'); // Split path into segments
 
-  if (!normalizedLocales.length) return null;
+  // Generate localized path for each locale
+  const generateLocalizedPath = (locale: string): string => {
+    if (!pathname) return `/${locale}`; // Default to root path for the locale
 
-  const generateLocalizedPath = (nextLocale: string): string => {
-    if (!pathname) return `/${nextLocale}`;
-
-    const segments = pathname.split('/').filter(Boolean);
-    const firstSegment = segments[0];
-    const localeCodes = normalizedLocales.map((item) => item.code);
-
-    if (localeCodes.includes(firstSegment)) {
-      segments[0] = nextLocale;
-    } else {
-      segments.unshift(nextLocale);
+    // Handle homepage (e.g., "/en" -> "/fr")
+    if (segments.length <= 2) {
+      return `/${locale}`;
     }
 
-    if (localizedSlugs?.[nextLocale] && segments.length > 1) {
-      segments[segments.length - 1] = localizedSlugs[nextLocale];
+    // Handle dynamic paths (e.g., "/en/blog/[slug]")
+    if (localizedSlugs[locale]) {
+      segments[1] = locale; // Replace the locale
+      segments[segments.length - 1] = localizedSlugs[locale]; // Replace slug if available
+      return segments.join('/');
     }
 
-    return `/${segments.join('/')}`;
+    // Fallback to replace only the locale
+    segments[1] = locale;
+    return segments.join('/');
   };
 
   return (
-    <div className="flex items-center gap-1 rounded-full border border-[#E2E2E2] bg-[#F8F9FA] p-1">
-      {normalizedLocales.map((locale) => {
-        const isActive = locale.code === currentLocale;
-
-        return (
-          <button
-            key={locale.code}
-            type="button"
-            onClick={() => router.push(generateLocalizedPath(locale.code))}
+    <div className="flex gap-2 p-1 rounded-md">
+      {Object.keys(localizedSlugs).map((locale) => (
+        <Link key={locale} href={generateLocalizedPath(locale)}>
+          <div
             className={cn(
-              'flex items-center gap-1.5 rounded-full px-3 py-1.5 text-sm font-medium transition',
-              isActive
-                ? 'bg-white text-[#2B2B2B] shadow-sm'
-                : 'text-[#666666] hover:bg-[#E2E2E2] hover:text-[#2B2B2B]'
+              'flex cursor-pointer items-center justify-center text-sm leading-[110%] w-8 py-1 rounded-md hover:bg-neutral-800 hover:text-white/80 text-white hover:shadow-[0px_1px_0px_0px_var(--neutral-600)_inset] transition duration-200',
+              locale === currentLocale
+                ? 'bg-neutral-800 text-white shadow-[0px_1px_0px_0px_var(--neutral-600)_inset]'
+                : ''
             )}
-            aria-current={isActive ? 'true' : undefined}
           >
-            <span>{getFlag(locale.code)}</span>
-            <span className="uppercase">{locale.code}</span>
-          </button>
-        );
-      })}
+            {locale}
+          </div>
+        </Link>
+      ))}
     </div>
   );
 }

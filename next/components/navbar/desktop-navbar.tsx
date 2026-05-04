@@ -100,8 +100,8 @@ export const DesktopNavbar = ({
         </div>
       </div>
 
-      <div className="relative z-10 flex items-center space-x-2">
-        <LocaleSwitcher currentLocale={locale} locales={locales} />
+    <div className="flex space-x-2 items-center">
+        <LocaleSwitcher currentLocale={locale} />
 
         {rightNavbarItems.map((item, index) => (
           <Button
@@ -110,7 +110,7 @@ export const DesktopNavbar = ({
               index === rightNavbarItems.length - 1 ? 'primary' : 'simple'
             }
             as={Link}
-            href={withLocale(item.URL, locale)}
+            href={`/${locale}${item.URL}`}
           >
             {item.text}
           </Button>
