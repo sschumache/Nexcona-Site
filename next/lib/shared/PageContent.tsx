@@ -2,19 +2,18 @@ import { AmbientColor } from '@/components/decorations/ambient-color';
 import DynamicZoneManager from '@/components/dynamic-zone/manager';
 import { fetchCollectionType } from '@/lib/strapi';
 
-export default async function PageContent({ pageData }: { pageData: any }) {
+export default async function PageContent({
+  pageData,
+  locale,
+}: {
+  pageData: any;
+  locale: string;
+}) {
   const dynamicZone = pageData?.dynamic_zone || [];
-  const locale = pageData?.locale;
 
-  // DEBUG
   console.log(
     'DYNAMIC ZONE COMPONENTS:',
     dynamicZone.map((component: any) => component.__component)
-  );
-
-  console.log(
-    'FULL DYNAMIC ZONE:',
-    JSON.stringify(dynamicZone, null, 2)
   );
 
   const hasTeamGrid = dynamicZone.some(
@@ -32,7 +31,7 @@ export default async function PageContent({ pageData }: { pageData: any }) {
     ? await fetchCollectionType('team-members', {
         locale,
         sort: ['order:asc'],
-        populate: ['image'], // FIX
+        populate: ['image'],
       })
     : [];
 

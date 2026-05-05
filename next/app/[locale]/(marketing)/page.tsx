@@ -77,7 +77,7 @@ export default async function HomePage({ params }: LocaleParamsProps) {
   return (
     <>
       <ClientSlugHandler localizedSlugs={{ [locale]: '' }} />
-      <PageContent pageData={{ ...pageData, locale }} />
+      <PageContent pageData={pageData} locale={locale} />
     </>
   );
 }
