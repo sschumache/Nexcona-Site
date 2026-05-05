@@ -77,7 +77,7 @@ export default async function Page({ params }: LocaleSlugParamsProps) {
   return (
     <>
       <ClientSlugHandler localizedSlugs={{ [locale]: slug }} />
-      <PageContent pageData={pageData} />
+      <PageContent pageData={{ ...pageData, locale }} />
     </>
   );
 }
