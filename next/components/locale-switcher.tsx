@@ -4,7 +4,6 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import React from 'react';
 
-import { useSlugContext } from '@/app/context/SlugContext';
 import { cn } from '@/lib/utils';
 
 const localeLabels: Record<string, string> = {
@@ -16,14 +15,7 @@ export function LocaleSwitcher({ currentLocale, locales = [] }: {
   currentLocale: string;
   locales?: string[];
 }) {  
-  const { state } = useSlugContext();
-  const { localizedSlugs } = state;
-
   const pathname = usePathname();
-
-  const availableLocales = Object.keys(localizedSlugs).length > 0 
-    ? Object.keys(localizedSlugs) 
-    : locales;
 
   const generateLocalizedPath = (locale: string): string => {
     if (!pathname) return `/${locale}`;
@@ -35,13 +27,6 @@ export function LocaleSwitcher({ currentLocale, locales = [] }: {
       return `/${locale}`;
     }
 
-    if (localizedSlugs[locale]) {
-      const newSegments = [...cleanSegments];
-      newSegments[1] = locale;
-      newSegments[newSegments.length - 1] = localizedSlugs[locale];
-      return newSegments.join('/');
-    }
-
     const newSegments = [...cleanSegments];
     newSegments[1] = locale;
     return newSegments.join('/');
@@ -49,7 +34,7 @@ export function LocaleSwitcher({ currentLocale, locales = [] }: {
 
   return (
     <div className="flex gap-2 p-1 rounded-md">
-      {availableLocales.map((locale) => (
+      {locales.map((locale) => (
         <Link key={locale} href={generateLocalizedPath(locale)}>
           <div
             className={cn(
