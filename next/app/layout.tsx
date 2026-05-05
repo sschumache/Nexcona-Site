@@ -1,4 +1,4 @@
-import type { Viewport } from 'next';
+import type { Metadata, Viewport } from 'next';
 import { Suspense } from 'react';
 
 import { i18n } from '@/i18n.config';
@@ -13,6 +13,12 @@ export const viewport: Viewport = {
     { media: '(prefers-color-scheme: light)', color: '#06b6d4' },
     { media: '(prefers-color-scheme: dark)', color: '#06b6d4' },
   ],
+};
+
+export const metadata: Metadata = {
+  icons: {
+    icon: '/favicon.ico',
+  },
 };
 
 export async function generateStaticParams() {
