@@ -10,59 +10,41 @@ import type { LocaleParamsProps } from '@/types/types';
 const pagePopulate = {
   seo: true,
   dynamic_zone: {
-    on: {
-      'dynamic-zone.hero': { populate: '*' },
-      'dynamic-zone.features': {
+    populate: {
+      globe_card: true,
+      ray_card: {
+        populate: ['before_ray_items', 'after_ray_items'],
+      },
+      graph_card: {
+        populate: ['top_items'],
+      },
+      social_media_card: {
         populate: {
-          globe_card: true,
-          ray_card: {
-            populate: ['before_ray_items', 'after_ray_items'],
-          },
-          graph_card: {
-            populate: ['top_items'],
-          },
-          social_media_card: {
-            populate: {
-              logos: {
-                populate: '*',
-              },
-            },
-          },
-          tech_stack_card: {
-            populate: {
-              logos: {
-                populate: '*',
-              },
-            },
-          },
-          slider_card: {
-            populate: {
-              items: {
-                populate: ['image'],
-              },
-            },
-          },
-          accordion_card: {
-            populate: ['items'],
-          },
-          business_value_card: {
-            populate: ['items'],
+          logos: {
+            populate: '*',
           },
         },
       },
-      'dynamic-zone.team-grid': { populate: '*' },
-      'dynamic-zone.service-grid': { populate: '*' },
-      'dynamic-zone.testimonials': { populate: '*' },
-      'dynamic-zone.how-it-works': { populate: '*' },
-      'dynamic-zone.brands': { populate: '*' },
-      'dynamic-zone.pricing': { populate: '*' },
-      'dynamic-zone.launches': { populate: '*' },
-      'dynamic-zone.cta': { populate: '*' },
-      'dynamic-zone.form-next-to-section': { populate: '*' },
-      'dynamic-zone.faq': { populate: '*' },
-      'dynamic-zone.related-products': { populate: '*' },
-      'dynamic-zone.related-articles': { populate: '*' },
-      'dynamic-zone.solution': { populate: '*' },
+      tech_stack_card: {
+        populate: {
+          logos: {
+            populate: '*',
+          },
+        },
+      },
+      slider_card: {
+        populate: {
+          items: {
+            populate: ['image'],
+          },
+        },
+      },
+      accordion_card: {
+        populate: ['items'],
+      },
+      business_value_card: {
+        populate: ['items'],
+      },
     },
   },
 };
@@ -92,25 +74,9 @@ export default async function HomePage({ params }: LocaleParamsProps) {
 
   if (!pageData) return notFound();
 
-  const localizedSlugs: Record<string, string> = { [locale]: '' };
-
-  try {
-    const [dePageData] = await fetchCollectionType('pages', {
-      filters: { slug: { $eq: 'homepage' }, locale: 'de' },
-    });
-    if (dePageData) localizedSlugs.de = '';
-  } catch {}
-
-  try {
-    const [enPageData] = await fetchCollectionType('pages', {
-      filters: { slug: { $eq: 'homepage' }, locale: 'en' },
-    });
-    if (enPageData) localizedSlugs.en = '';
-  } catch {}
-
   return (
     <>
-      <ClientSlugHandler localizedSlugs={localizedSlugs} />
+      <ClientSlugHandler localizedSlugs={{ [locale]: '' }} />
       <PageContent pageData={pageData} />
     </>
   );
