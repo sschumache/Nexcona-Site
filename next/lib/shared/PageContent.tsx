@@ -1,3 +1,5 @@
+'use client';
+
 import { AmbientColor } from '@/components/decorations/ambient-color';
 import DynamicZoneManager from '@/components/dynamic-zone/manager';
 import { fetchCollectionType } from '@/lib/strapi';
@@ -6,9 +8,15 @@ export default async function PageContent({ pageData }: { pageData: any }) {
   const dynamicZone = pageData?.dynamic_zone || [];
   const locale = pageData?.locale;
 
+  //DEBUG
   console.log(
-    'Dynamic Zone Components:',
+    'DYNAMIC ZONE COMPONENTS:',
     dynamicZone.map((component: any) => component.__component)
+  );
+
+  console.log(
+    'FULL DYNAMIC ZONE:',
+    JSON.stringify(dynamicZone, null, 2)
   );
 
   const hasTeamGrid = dynamicZone.some(
@@ -19,6 +27,8 @@ export default async function PageContent({ pageData }: { pageData: any }) {
     (component: any) => component.__component === 'dynamic-zone.service-grid'
   );
 
+  console.log('HAS TEAM GRID:', hasTeamGrid);
+
   const members = hasTeamGrid
     ? await fetchCollectionType('team-members', {
         locale,
@@ -28,6 +38,8 @@ export default async function PageContent({ pageData }: { pageData: any }) {
         },
       })
     : [];
+
+  console.log('TEAM MEMBERS COUNT:', members.length);
 
   const services = hasServiceGrid
     ? await fetchCollectionType('services', {
