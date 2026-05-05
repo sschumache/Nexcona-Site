@@ -17,18 +17,22 @@ export async function generateMetadata({
   params,
 }: LocaleParamsProps): Promise<Metadata> {
   const { locale } = await params;
-  const pageData = await fetchSingleType('blog-page', { locale });
 
-  const seo = pageData.seo;
-  const metadata = generateMetadataObject(seo);
-  return metadata;
+  try {
+    const pageData = await fetchSingleType('blog-page', { locale });
+    const seo = pageData.seo;
+    const metadata = generateMetadataObject(seo);
+    return metadata;
+  } catch {
+    return {};
+  }
 }
 
 export default async function Blog({ params }: LocaleParamsProps) {
   const { locale } = await params;
-  const pageData = await fetchSingleType('blog-page', {
-    locale: locale,
-  });
+
+  const pageData = await fetchSingleType('blog-page', { locale });
+
   const [firstArticle, ...articles] = await fetchCollectionType<Article[]>(
     'articles',
     {
@@ -36,13 +40,17 @@ export default async function Blog({ params }: LocaleParamsProps) {
     }
   );
 
-  const localizedSlugs = pageData.localizations.reduce(
-    (acc: Record<string, string>, localization: any) => {
-      acc[localization.locale] = 'blog';
-      return acc;
-    },
-    { [locale]: 'blog' }
-  );
+  const localizedSlugs: Record<string, string> = { [locale]: 'blog' };
+
+  try {
+    const dePageData = await fetchSingleType('blog-page', { locale: 'de' });
+    if (dePageData) localizedSlugs['de'] = 'blog';
+  } catch {}
+
+  try {
+    const enPageData = await fetchSingleType('blog-page', { locale: 'en' });
+    if (enPageData) localizedSlugs['en'] = 'blog';
+  } catch {}
 
   return (
     <div className="relative overflow-hidden py-20 md:py-0">

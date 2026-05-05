@@ -15,14 +15,17 @@ export async function generateMetadata({
 }: LocaleSlugParamsProps): Promise<Metadata> {
   const { slug, locale } = await params;
 
-  const [pageData] = await fetchCollectionType<Product[]>('products', {
-    filters: { slug: { $eq: slug } },
-    locale,
-  });
-
-  const seo = pageData;
-  const metadata = generateMetadataObject(seo);
-  return metadata;
+  try {
+    const [pageData] = await fetchCollectionType<Product[]>('products', {
+      filters: { slug: { $eq: slug } },
+      locale,
+    });
+    const seo = pageData;
+    const metadata = generateMetadataObject(seo);
+    return metadata;
+  } catch {
+    return {};
+  }
 }
 
 export default async function SingleProductPage({
@@ -41,13 +44,23 @@ export default async function SingleProductPage({
     redirect('/products');
   }
 
-  const localizedSlugs = pageData.localizations?.reduce(
-    (acc: Record<string, string>, localization: any) => {
-      acc[localization.locale] = localization.slug;
-      return acc;
-    },
-    { [locale]: slug }
-  ) || {};
+  const localizedSlugs: Record<string, string> = { [locale]: slug };
+
+  try {
+    const [deProduct] = await fetchCollectionType<Product[]>('products', {
+      filters: { slug: { $eq: slug } },
+      locale: 'de',
+    });
+    if (deProduct) localizedSlugs['de'] = (deProduct as any).slug ?? slug;
+  } catch {}
+
+  try {
+    const [enProduct] = await fetchCollectionType<Product[]>('products', {
+      filters: { slug: { $eq: slug } },
+      locale: 'en',
+    });
+    if (enProduct) localizedSlugs['en'] = (enProduct as any).slug ?? slug;
+  } catch {}
 
   return (
     <div className="relative overflow-hidden w-full">

@@ -44,13 +44,21 @@ export default async function Page({ params }: LocaleSlugParamsProps) {
 
   if (!pageData) return notFound();
 
-  const localizedSlugs = pageData.localizations?.reduce(
-    (acc: Record<string, string>, localization: any) => {
-      acc[localization.locale] = localization.slug;
-      return acc;
-    },
-    { [locale]: slug }
-  ) ?? { [locale]: slug };
+  const localizedSlugs: Record<string, string> = { [locale]: slug };
+
+  try {
+    const [dePageData] = await fetchCollectionType('pages', {
+      filters: { slug: { $eq: slug }, locale: 'de' },
+    });
+    if (dePageData) localizedSlugs['de'] = (dePageData as any).slug ?? slug;
+  } catch {}
+
+  try {
+    const [enPageData] = await fetchCollectionType('pages', {
+      filters: { slug: { $eq: slug }, locale: 'en' },
+    });
+    if (enPageData) localizedSlugs['en'] = (enPageData as any).slug ?? slug;
+  } catch {}
 
   return (
     <>

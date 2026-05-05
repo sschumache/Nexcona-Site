@@ -23,13 +23,23 @@ export default async function SingleArticlePage({
     return <div>Blog not found</div>;
   }
 
-  const localizedSlugs = article.localizations.reduce(
-    (acc: Record<string, string>, localization: any) => {
-      acc[localization.locale] = localization.slug;
-      return acc;
-    },
-    { [locale]: slug }
-  );
+  const localizedSlugs: Record<string, string> = { [locale]: slug };
+
+  try {
+    const [deArticle] = await fetchCollectionType<Article[]>('articles', {
+      filters: { slug: { $eq: slug } },
+      locale: 'de',
+    });
+    if (deArticle) localizedSlugs['de'] = (deArticle as any).slug ?? slug;
+  } catch {}
+
+  try {
+    const [enArticle] = await fetchCollectionType<Article[]>('articles', {
+      filters: { slug: { $eq: slug } },
+      locale: 'en',
+    });
+    if (enArticle) localizedSlugs['en'] = (enArticle as any).slug ?? slug;
+  } catch {}
 
   return (
     <BlogLayout article={article} locale={locale}>

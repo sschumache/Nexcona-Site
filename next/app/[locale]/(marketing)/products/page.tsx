@@ -17,27 +17,35 @@ export async function generateMetadata({
   params,
 }: LocaleParamsProps): Promise<Metadata> {
   const { locale } = await params;
-  const pageData = await fetchSingleType('product-page', { locale });
 
-  const seo = pageData?.seo;
-  const metadata = generateMetadataObject(seo);
-  return metadata;
+  try {
+    const pageData = await fetchSingleType('product-page', { locale });
+    const seo = pageData?.seo;
+    const metadata = generateMetadataObject(seo);
+    return metadata;
+  } catch {
+    return {};
+  }
 }
 
 export default async function Products({ params }: LocaleParamsProps) {
   const { locale } = await params;
 
-  // Fetch the product-page and products data
   const pageData = await fetchSingleType('product-page', { locale });
   const products = await fetchCollectionType<Product[]>('products', { locale });
 
-  const localizedSlugs = pageData.localizations.reduce(
-    (acc: Record<string, string>, localization: any) => {
-      acc[localization.locale] = 'products';
-      return acc;
-    },
-    { [locale]: 'products' }
-  );
+  const localizedSlugs: Record<string, string> = { [locale]: 'products' };
+
+  try {
+    const dePageData = await fetchSingleType('product-page', { locale: 'de' });
+    if (dePageData) localizedSlugs['de'] = 'products';
+  } catch {}
+
+  try {
+    const enPageData = await fetchSingleType('product-page', { locale: 'en' });
+    if (enPageData) localizedSlugs['en'] = 'products';
+  } catch {}
+
   const featured = products.filter(
     (product: { featured?: boolean }) => product.featured
   );
