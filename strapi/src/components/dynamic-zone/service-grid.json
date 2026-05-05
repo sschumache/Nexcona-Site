@@ -1,0 +1,19 @@
+{
+  "collectionName": "components_sections_service_grids",
+  "info": {
+    "displayName": "Service Grid",
+    "icon": "apps"
+  },
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "subtitle": {
+      "type": "text"
+    },
+    "limit": {
+      "type": "integer",
+      "default": 6
+    }
+  }
+}

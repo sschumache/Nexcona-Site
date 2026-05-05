@@ -1,0 +1,19 @@
+{
+  "collectionName": "components_sections_team_grids",
+  "info": {
+    "displayName": "Team Grid",
+    "icon": "user"
+  },
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "subtitle": {
+      "type": "text"
+    },
+    "limit": {
+      "type": "integer",
+      "default": 6
+    }
+  }
+}
