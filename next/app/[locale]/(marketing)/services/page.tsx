@@ -29,12 +29,6 @@ export default async function ServicesPage({ params }: LocaleParamsProps) {
   const services = await fetchCollectionType('services', {
     locale,
     sort: ['order:asc'],
-    filters: {
-      is_active: {
-        $eq: true,
-      },
-    },
-    populate: ['icon', 'image', 'cta', 'features', 'category'],
   });
 
   const localizedSlugs: Record<string, string> = { [locale]: '' };

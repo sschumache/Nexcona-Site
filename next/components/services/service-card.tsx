@@ -22,7 +22,7 @@ export function ServiceCard({ service, locale }: ServiceCardProps) {
   const iconUrl = service.icon?.url?.startsWith('http')
     ? service.icon.url
     : service.icon?.url
-      ? `${process.env.NEXT_PUBLIC_STRAPI_URL}${service.icon.url}`
+      ? `${process.env.NEXT_PUBLIC_API_URL}${service.icon.url}`
       : undefined;
 
   return (
@@ -49,6 +49,7 @@ export function ServiceCard({ service, locale }: ServiceCardProps) {
               width={32}
               height={32}
               className="h-8 w-8 object-contain"
+              unoptimized
             />
           ) : (
             <div className="h-6 w-6 rounded-full bg-[#00AEEF]" />

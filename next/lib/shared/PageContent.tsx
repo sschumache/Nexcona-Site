@@ -31,12 +31,6 @@ export default async function PageContent({
     ? await fetchCollectionType('services', {
         locale,
         sort: ['order:asc'],
-        filters: {
-          is_active: {
-            $eq: true,
-          },
-        },
-        populate: ['icon', 'image', 'cta', 'features', 'category'],
       })
     : [];
 

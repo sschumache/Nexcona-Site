@@ -23,7 +23,7 @@ export function TeamCard({ member }: { member: TeamMember }) {
   const imageUrl = member.image?.url?.startsWith('http')
     ? member.image.url
     : member.image?.url
-      ? `${process.env.NEXT_PUBLIC_STRAPI_URL}${member.image.url}`
+      ? `${process.env.NEXT_PUBLIC_API_URL}${member.image.url}`
       : undefined;
 
   return (
@@ -44,6 +44,7 @@ export function TeamCard({ member }: { member: TeamMember }) {
               src={imageUrl}
               alt={member.image?.alternativeText || member.name}
               fill
+              unoptimized
               className={cn(
                 'object-cover transition-transform duration-700',
                 hovered ? 'scale-105' : 'scale-100'
