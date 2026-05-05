@@ -1,36 +1,18 @@
+'use client';
+
 import { Container } from '@/components/container';
 import { Heading } from '@/components/elements/heading';
 import { Subheading } from '@/components/elements/subheading';
 import { ServiceCard } from '@/components/services/service-card';
-import { fetchCollectionType } from '@/lib/strapi';
 
 type Props = {
   title?: string;
   subtitle?: string;
-  limit?: number;
+  services?: any[];
   locale: string;
 };
 
-export const ServiceGrid = async ({
-  title,
-  subtitle,
-  limit,
-  locale,
-}: Props) => {
-  const services = await fetchCollectionType('services', {
-    locale,
-    sort: ['order:asc'],
-    filters: {
-      is_active: {
-        $eq: true,
-      },
-    },
-    pagination: {
-      pageSize: limit || 6,
-    },
-    populate: ['icon', 'image', 'CTA', 'features'],
-  });
-
+export const ServiceGrid = ({ title, subtitle, services = [], locale }: Props) => {
   return (
     <Container className="py-24">
       {(title || subtitle) && (
@@ -48,7 +30,7 @@ export const ServiceGrid = async ({
         </div>
       )}
       <div className="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3">
-        {(services as any[]).map((service) => (
+        {services.map((service) => (
           <ServiceCard key={service.id} service={service} locale={locale} />
         ))}
       </div>
