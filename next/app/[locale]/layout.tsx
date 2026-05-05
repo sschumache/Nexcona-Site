@@ -22,12 +22,19 @@ const inter = Inter({
   weight: ['400', '500', '600', '700', '800', '900'],
 });
 
-// Default Global SEO for pages without them
+const fetchGlobalWithFallback = async (locale: string) => {
+  try {
+    return await fetchSingleType('global', { locale });
+  } catch {
+    return await fetchSingleType('global', { locale: 'de' });
+  }
+};
+
 export async function generateMetadata({
   params,
 }: PropsWithChildren<LocaleParamsProps>): Promise<Metadata> {
   const { locale } = await params;
-  const pageData = await fetchSingleType('global', { locale });
+  const pageData = await fetchGlobalWithFallback(locale);
 
   const seo = pageData.seo;
   const metadata = generateMetadataObject(seo);
@@ -40,7 +47,7 @@ export default async function LocaleLayout({
 }: PropsWithChildren<LocaleParamsProps>) {
   const { isEnabled: isDraftMode } = await draftMode();
   const { locale } = await params;
-  const pageData = await fetchSingleType('global', { locale });
+  const pageData = await fetchGlobalWithFallback(locale);
   const isDemo = process.env.NEXT_IS_DEMO === 'true';
 
   return (
