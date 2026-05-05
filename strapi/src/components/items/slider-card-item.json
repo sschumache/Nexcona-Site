@@ -3,11 +3,23 @@
   "info": {
     "displayName": "Slider Card Item",
     "icon": "bulletList",
-    "description": ""
+    "description": "Ein einzelnes Element im Slider (Bild + Text)"
   },
   "options": {},
   "attributes": {
-    "title": { "type": "string" },
-    "description": { "type": "text" }
+    "title": {
+      "type": "string"
+    },
+    "subtitle": {
+      "type": "string"
+    },
+    "description": {
+      "type": "text"
+    },
+    "image": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": ["images"]
+    }
   }
 }
