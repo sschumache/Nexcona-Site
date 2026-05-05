@@ -10,37 +10,59 @@ import type { LocaleParamsProps } from '@/types/types';
 const pagePopulate = {
   seo: true,
   dynamic_zone: {
-    populate: {
-      globe_card: true,
-      ray_card: {
-        populate: ['before_ray_items', 'after_ray_items'],
-      },
-      graph_card: {
-        populate: ['top_items'],
-      },
-      social_media_card: {
+    on: {
+      'dynamic-zone.hero': { populate: '*' },
+      'dynamic-zone.features': {
         populate: {
-          logos: {
-            populate: '*',
+          globe_card: true,
+          ray_card: {
+            populate: ['before_ray_items', 'after_ray_items'],
+          },
+          graph_card: {
+            populate: ['top_items'],
+          },
+          social_media_card: {
+            populate: {
+              logos: {
+                populate: '*',
+              },
+            },
+          },
+          tech_stack_card: {
+            populate: {
+              logos: {
+                populate: '*',
+              },
+            },
+          },
+          slider_card: {
+            populate: {
+              items: {
+                populate: ['image'],
+              },
+            },
+          },
+          accordion_card: {
+            populate: ['items'],
+          },
+          business_value_card: {
+            populate: ['items'],
           },
         },
       },
-      tech_stack_card: {
-        populate: {
-          logos: {
-            populate: '*',
-          },
-        },
-      },
-      slider_card: {
-        populate: ['items'],
-      },
-      accordion_card: {
-        populate: ['items'],
-      },
-      business_value_card: {
-        populate: ['items'],
-      },
+      'dynamic-zone.team-grid': { populate: '*' },
+      'dynamic-zone.service-grid': { populate: '*' },
+      'dynamic-zone.testimonials': { populate: '*' },
+      'dynamic-zone.how-it-works': { populate: '*' },
+      'dynamic-zone.brands': { populate: '*' },
+      'dynamic-zone.pricing': { populate: '*' },
+      'dynamic-zone.launches': { populate: '*' },
+      'dynamic-zone.cta': { populate: '*' },
+      'dynamic-zone.form-next-to-section': { populate: '*' },
+      'dynamic-zone.faq': { populate: '*' },
+      'dynamic-zone.related-products': { populate: '*' },
+      'dynamic-zone.related-articles': { populate: '*' },
+      'dynamic-zone.solution': { populate: '*' },
     },
   },
 };
@@ -57,8 +79,7 @@ export async function generateMetadata({
 
   if (!pageData) return {};
 
-  const seo = pageData.seo;
-  return generateMetadataObject(seo);
+  return generateMetadataObject(pageData.seo);
 }
 
 export default async function HomePage({ params }: LocaleParamsProps) {

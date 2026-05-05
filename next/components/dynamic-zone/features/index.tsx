@@ -21,15 +21,15 @@ import { SkeletonSix } from './skeletons/sixth';
 import { SkeletonSeven } from './skeletons/seventh';
 import { SkeletonEight } from './skeletons/eighth';
 
-const wordToNumber: { [key: string]: number } = {
-  one: 1,
-  two: 2,
-  three: 3,
-};
+function getSpanClass(
+  span?: string,
+  fallback: 'one' | 'two' | 'three' = 'one'
+) {
+  const value = span || fallback;
 
-function convertWordToNumber(word?: string) {
-  if (!word) return null;
-  return wordToNumber[word.toLowerCase()] || null;
+  if (value === 'three') return 'md:col-span-3';
+  if (value === 'two') return 'md:col-span-2';
+  return 'md:col-span-1';
 }
 
 export const Features = ({
@@ -67,7 +67,7 @@ export const Features = ({
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 py-10">
           {globe_card && (
-            <Card className={`md:col-span-${convertWordToNumber(globe_card?.span) || '2'}`}>
+            <Card className={getSpanClass(globe_card?.span, 'two')}>
               <CardTitle>{globe_card.title}</CardTitle>
               <CardDescription>{globe_card.description}</CardDescription>
               <CardSkeletonContainer>
@@ -77,7 +77,7 @@ export const Features = ({
           )}
 
           {ray_card && (
-            <Card className={`md:col-span-${convertWordToNumber(ray_card?.span) || '1'}`}>
+            <Card className={getSpanClass(ray_card?.span, 'one')}>
               <CardSkeletonContainer className="max-w-[16rem] mx-auto">
                 <SkeletonTwo
                   beforeItems={ray_card?.before_ray_items}
@@ -90,8 +90,11 @@ export const Features = ({
           )}
 
           {graph_card && (
-            <Card className={`md:col-span-${convertWordToNumber(graph_card?.span) || '2'}`}>
-              <CardSkeletonContainer showGradient={false} className="max-w-[16rem] mx-auto">
+            <Card className={getSpanClass(graph_card?.span, 'two')}>
+              <CardSkeletonContainer
+                showGradient={false}
+                className="max-w-[16rem] mx-auto"
+              >
                 <SkeletonThree />
               </CardSkeletonContainer>
               <CardTitle>{graph_card.title}</CardTitle>
@@ -100,7 +103,7 @@ export const Features = ({
           )}
 
           {social_media_card && (
-            <Card className={`md:col-span-${convertWordToNumber(social_media_card?.span) || '1'}`}>
+            <Card className={getSpanClass(social_media_card?.span, 'one')}>
               <CardSkeletonContainer showGradient={false}>
                 <SkeletonFour logos={social_media_card?.logos} />
               </CardSkeletonContainer>
@@ -110,7 +113,7 @@ export const Features = ({
           )}
 
           {tech_stack_card && (
-            <Card className={`md:col-span-${convertWordToNumber(tech_stack_card?.span) || '1'}`}>
+            <Card className={getSpanClass(tech_stack_card?.span, 'two')}>
               <CardSkeletonContainer showGradient={false}>
                 <SkeletonFive logos={tech_stack_card?.logos} />
               </CardSkeletonContainer>
@@ -120,8 +123,11 @@ export const Features = ({
           )}
 
           {slider_card && (
-            <Card className={`md:col-span-${convertWordToNumber(slider_card?.span) || '3'}`}>
-              <CardSkeletonContainer showGradient={false} className="h-[24rem]">
+            <Card className={getSpanClass(slider_card?.span, 'three')}>
+              <CardSkeletonContainer
+                showGradient={false}
+                className="h-[30rem] overflow-hidden"
+              >
                 <SkeletonSix items={slider_card?.items} />
               </CardSkeletonContainer>
               <CardTitle>{slider_card.title}</CardTitle>
@@ -130,8 +136,11 @@ export const Features = ({
           )}
 
           {accordion_card && (
-            <Card className={`md:col-span-${convertWordToNumber(accordion_card?.span) || '2'}`}>
-              <CardSkeletonContainer showGradient={false} className="h-auto min-h-[20rem]">
+            <Card className={getSpanClass(accordion_card?.span, 'two')}>
+              <CardSkeletonContainer
+                showGradient={false}
+                className="h-auto min-h-[20rem]"
+              >
                 <SkeletonSeven items={accordion_card?.items} />
               </CardSkeletonContainer>
               <CardTitle>{accordion_card.title}</CardTitle>
@@ -140,7 +149,7 @@ export const Features = ({
           )}
 
           {business_value_card && (
-            <Card className={`md:col-span-${convertWordToNumber(business_value_card?.span) || '1'}`}>
+            <Card className={getSpanClass(business_value_card?.span, 'one')}>
               <CardSkeletonContainer showGradient={false}>
                 <SkeletonEight items={business_value_card?.items} />
               </CardSkeletonContainer>
