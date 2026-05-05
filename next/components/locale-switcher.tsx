@@ -20,7 +20,6 @@ export function LocaleSwitcher({ currentLocale, locales = [] }: {
   const { localizedSlugs } = state;
 
   const pathname = usePathname();
-  const segments = pathname.split('/');
 
   const availableLocales = Object.keys(localizedSlugs).length > 0 
     ? Object.keys(localizedSlugs) 
@@ -29,18 +28,21 @@ export function LocaleSwitcher({ currentLocale, locales = [] }: {
   const generateLocalizedPath = (locale: string): string => {
     if (!pathname) return `/${locale}`;
 
-    if (segments.length <= 2) {
+    const cleanPath = pathname.replace(/\/$/, '');
+    const cleanSegments = cleanPath.split('/');
+
+    if (cleanSegments.length <= 2) {
       return `/${locale}`;
     }
 
     if (localizedSlugs[locale]) {
-      const newSegments = [...segments];
+      const newSegments = [...cleanSegments];
       newSegments[1] = locale;
       newSegments[newSegments.length - 1] = localizedSlugs[locale];
       return newSegments.join('/');
     }
 
-    const newSegments = [...segments];
+    const newSegments = [...cleanSegments];
     newSegments[1] = locale;
     return newSegments.join('/');
   };
