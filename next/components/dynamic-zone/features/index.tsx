@@ -55,6 +55,19 @@ export const Features = ({
   accordion_card: any;
   business_value_card: any;
 }) => {
+
+  // 🔍 DEBUG: schauen ob Daten überhaupt ankommen
+  console.log('Features data:', {
+    globe_card,
+    ray_card,
+    graph_card,
+    social_media_card,
+    tech_stack_card,
+    slider_card,
+    accordion_card,
+    business_value_card,
+  });
+
   return (
     <GradientContainer className="md:my-20">
       <Container className="py-20 max-w-7xl mx-auto relative z-40">
@@ -107,8 +120,8 @@ export const Features = ({
               <CardSkeletonContainer showGradient={false}>
                 <SkeletonFour logos={social_media_card?.logos} />
               </CardSkeletonContainer>
-              <CardTitle>{social_media_card.title}</CardTitle>
-              <CardDescription>{social_media_card.description}</CardDescription>
+              <CardTitle>{social_media_card.Title}</CardTitle>
+              <CardDescription>{social_media_card.Description}</CardDescription>
             </Card>
           )}
 
