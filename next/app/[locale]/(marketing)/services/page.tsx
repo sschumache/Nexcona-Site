@@ -29,11 +29,6 @@ export default async function ServicesPage({ params }: LocaleParamsProps) {
   const services = await fetchCollectionType('services', {
     locale,
     sort: ['order:asc'],
-    filters: {
-      is_active: {
-        $eq: true,
-      },
-    },
     populate: ['icon', 'image', 'CTA', 'features', 'category'],
   });
 
@@ -68,11 +63,7 @@ export default async function ServicesPage({ params }: LocaleParamsProps) {
       <Container className="pb-40">
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3">
           {(services as any[]).map((service: any) => (
-            <ServiceCard
-              key={service.id}
-              service={service}
-              locale={locale}
-            />
+            <ServiceCard key={service.id} service={service} locale={locale} />
           ))}
         </div>
 
