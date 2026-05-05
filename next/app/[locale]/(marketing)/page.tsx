@@ -14,6 +14,7 @@ export async function generateMetadata({
 
   const [pageData] = await fetchCollectionType('pages', {
     filters: { slug: { $eq: 'homepage' }, locale },
+    populate: ['localizations'],
   });
 
   if (!pageData) return {};
@@ -28,6 +29,7 @@ export default async function HomePage({ params }: LocaleParamsProps) {
 
   const [pageData] = await fetchCollectionType('pages', {
     filters: { slug: { $eq: 'homepage' }, locale },
+    populate: ['localizations'],
   });
 
   if (!pageData) return notFound();
