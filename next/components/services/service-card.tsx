@@ -19,6 +19,12 @@ type ServiceCardProps = {
 };
 
 export function ServiceCard({ service, locale }: ServiceCardProps) {
+  const iconUrl = service.icon?.url?.startsWith('http')
+    ? service.icon.url
+    : service.icon?.url
+      ? `${process.env.NEXT_PUBLIC_STRAPI_URL}${service.icon.url}`
+      : undefined;
+
   return (
     <Link
       href={`/${locale}/services/${service.slug}`}
@@ -36,10 +42,10 @@ export function ServiceCard({ service, locale }: ServiceCardProps) {
 
       <div className="relative z-10">
         <div className="mb-8 flex h-14 w-14 items-center justify-center rounded-2xl bg-[#F4F7F9]">
-          {service.icon?.url ? (
+          {iconUrl ? (
             <Image
-              src={service.icon.url}
-              alt={service.icon.alternativeText || service.name}
+              src={iconUrl}
+              alt={service.icon?.alternativeText || service.name}
               width={32}
               height={32}
               className="h-8 w-8 object-contain"

@@ -20,6 +20,12 @@ type TeamMember = {
 export function TeamCard({ member }: { member: TeamMember }) {
   const [hovered, setHovered] = useState(false);
 
+  const imageUrl = member.image?.url?.startsWith('http')
+    ? member.image.url
+    : member.image?.url
+      ? `${process.env.NEXT_PUBLIC_STRAPI_URL}${member.image.url}`
+      : undefined;
+
   return (
     <article
       className="group relative overflow-hidden rounded-[2.5rem] border border-[#E2E2E2] bg-white/80 p-6 shadow-sm backdrop-blur-xl transition-all duration-500 hover:-translate-y-1 hover:shadow-xl"
@@ -33,10 +39,10 @@ export function TeamCard({ member }: { member: TeamMember }) {
 
       <div className="relative z-10">
         <div className="relative aspect-[4/5] overflow-hidden rounded-[2rem] bg-[#F4F7F9]">
-          {member.image?.url ? (
+          {imageUrl ? (
             <Image
-              src={member.image.url}
-              alt={member.image.alternativeText || member.name}
+              src={imageUrl}
+              alt={member.image?.alternativeText || member.name}
               fill
               className={cn(
                 'object-cover transition-transform duration-700',
