@@ -23,6 +23,9 @@ const createClient = (
     baseURL: `${API_URL}/api`,
     headers: {
       'strapi-encode-source-maps': isDraftMode ? 'true' : 'false',
+      ...(process.env.STRAPI_API_TOKEN
+        ? { Authorization: `Bearer ${process.env.STRAPI_API_TOKEN}` }
+        : {}),
       ...config?.headers,
     },
     ...config,
