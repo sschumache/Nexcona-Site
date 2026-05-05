@@ -9,7 +9,7 @@ import { cn } from '@/lib/utils';
 
 const localeLabels: Record<string, string> = {
   'en': 'EN',
-  'de-CH': 'DE',
+  'de': 'DE',
 };
 
 export function LocaleSwitcher({ currentLocale, locales = [] }: { 
