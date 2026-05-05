@@ -11,12 +11,12 @@ type Props = {
   locale: string;
 };
 
-export default async function ServiceGrid({
+export const ServiceGrid = async ({
   title,
   subtitle,
   limit,
   locale,
-}: Props) {
+}: Props) => {
   const services = await fetchCollectionType('services', {
     locale,
     sort: ['order:asc'],
@@ -40,7 +40,6 @@ export default async function ServiceGrid({
               {title}
             </Heading>
           )}
-
           {subtitle && (
             <Subheading className="mx-auto mt-4 max-w-2xl">
               {subtitle}
@@ -48,16 +47,11 @@ export default async function ServiceGrid({
           )}
         </div>
       )}
-
       <div className="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3">
         {(services as any[]).map((service) => (
-          <ServiceCard
-            key={service.id}
-            service={service}
-            locale={locale}
-          />
+          <ServiceCard key={service.id} service={service} locale={locale} />
         ))}
       </div>
     </Container>
   );
-}
+};

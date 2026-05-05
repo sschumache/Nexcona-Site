@@ -46,9 +46,15 @@ const componentMapping: { [key: string]: any } = {
   'dynamic-zone.related-articles': dynamic(() =>
     import('./related-articles').then((mod) => mod.RelatedArticles)
   ),
-  'dynamic-zone.team-grid': dynamic(() => import('./team-grid')),
-  'dynamic-zone.service-grid': dynamic(() => import('./service-grid')),
-  'dynamic-zone.solution': dynamic(() => import('./solution')),
+  'dynamic-zone.team-grid': dynamic(() =>
+  import('./team-grid').then((mod) => mod.TeamGrid)
+  ),
+  'dynamic-zone.service-grid': dynamic(() =>
+    import('./service-grid').then((mod) => mod.ServiceGrid)
+  ),
+  'dynamic-zone.solution': dynamic(() =>
+    import('./solution').then((mod) => mod.Solution)
+  ),
 };
 
 const DynamicZoneManager: React.FC<Props> = ({ dynamicZone, locale }) => {

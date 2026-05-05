@@ -11,12 +11,12 @@ type Props = {
   locale: string;
 };
 
-export default async function TeamGrid({
+export const TeamGrid = async ({
   title,
   subtitle,
   limit,
   locale,
-}: Props) {
+}: Props) => {
   const members = await fetchCollectionType('team-members', {
     locale,
     sort: ['order:asc'],
@@ -35,7 +35,6 @@ export default async function TeamGrid({
               {title}
             </Heading>
           )}
-
           {subtitle && (
             <Subheading className="mx-auto mt-4 max-w-2xl">
               {subtitle}
@@ -43,7 +42,6 @@ export default async function TeamGrid({
           )}
         </div>
       )}
-
       <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
         {(members as any[]).map((member) => (
           <TeamCard key={member.id} member={member} />
@@ -51,4 +49,4 @@ export default async function TeamGrid({
       </div>
     </Container>
   );
-}
+};
