@@ -1,0 +1,21 @@
+{
+  "collectionName": "components_dynamic_zone_solutions",
+  "info": {
+    "displayName": "Solution",
+    "icon": "cog"
+  },
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "subtitle": {
+      "type": "text"
+    },
+    "items": {
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.feature"
+    }
+  }
+}

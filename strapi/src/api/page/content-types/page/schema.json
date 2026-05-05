@@ -53,7 +53,10 @@
         "dynamic-zone.launches",
         "dynamic-zone.cta",
         "dynamic-zone.form-next-to-section",
-        "dynamic-zone.faq"
+        "dynamic-zone.faq",
+        "dynamic-zone.service-grid",
+        "dynamic-zone.team-grid",
+        "dynamic-zone.solution"
       ]
     }
   }
