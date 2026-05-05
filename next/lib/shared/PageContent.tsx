@@ -6,7 +6,7 @@ export default async function PageContent({ pageData }: { pageData: any }) {
   const dynamicZone = pageData?.dynamic_zone || [];
   const locale = pageData?.locale;
 
-  //DEBUG
+  // DEBUG
   console.log(
     'DYNAMIC ZONE COMPONENTS:',
     dynamicZone.map((component: any) => component.__component)
@@ -26,14 +26,13 @@ export default async function PageContent({ pageData }: { pageData: any }) {
   );
 
   console.log('HAS TEAM GRID:', hasTeamGrid);
+  console.log('PAGE LOCALE:', locale);
 
   const members = hasTeamGrid
     ? await fetchCollectionType('team-members', {
         locale,
         sort: ['order:asc'],
-        populate: {
-          image: true,
-        },
+        populate: ['image'], // FIX
       })
     : [];
 
