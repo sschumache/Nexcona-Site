@@ -11,11 +11,6 @@ export default async function PageContent({
 }) {
   const dynamicZone = pageData?.dynamic_zone || [];
 
-  console.log(
-    'DYNAMIC ZONE COMPONENTS:',
-    dynamicZone.map((component: any) => component.__component)
-  );
-
   const hasTeamGrid = dynamicZone.some(
     (component: any) => component.__component === 'dynamic-zone.team-grid'
   );
@@ -23,9 +18,6 @@ export default async function PageContent({
   const hasServiceGrid = dynamicZone.some(
     (component: any) => component.__component === 'dynamic-zone.service-grid'
   );
-
-  console.log('HAS TEAM GRID:', hasTeamGrid);
-  console.log('PAGE LOCALE:', locale);
 
   const members = hasTeamGrid
     ? await fetchCollectionType('team-members', {
@@ -35,19 +27,16 @@ export default async function PageContent({
       })
     : [];
 
-  console.log('TEAM MEMBERS COUNT:', members.length);
-
   const services = hasServiceGrid
     ? await fetchCollectionType('services', {
         locale,
         sort: ['order:asc'],
-        populate: {
-          icon: true,
-          image: true,
-          CTA: true,
-          category: true,
-          features: true,
+        filters: {
+          is_active: {
+            $eq: true,
+          },
         },
+        populate: ['icon', 'image', 'cta', 'features', 'category'],
       })
     : [];
 

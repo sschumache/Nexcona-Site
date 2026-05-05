@@ -15,7 +15,7 @@ export async function generateMetadata({
   const { locale } = await params;
 
   return {
-    title: locale === 'de' ? 'Services | Nexcona' : 'Services | Nexcona',
+    title: 'Services | Nexcona',
     description:
       locale === 'de'
         ? 'Entdecken Sie die IT-Services von Nexcona.'
@@ -29,7 +29,12 @@ export default async function ServicesPage({ params }: LocaleParamsProps) {
   const services = await fetchCollectionType('services', {
     locale,
     sort: ['order:asc'],
-    populate: ['icon', 'image', 'CTA', 'features', 'category'],
+    filters: {
+      is_active: {
+        $eq: true,
+      },
+    },
+    populate: ['icon', 'image', 'cta', 'features', 'category'],
   });
 
   const localizedSlugs: Record<string, string> = { [locale]: '' };
