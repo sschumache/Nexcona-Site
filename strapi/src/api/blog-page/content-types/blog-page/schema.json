@@ -56,7 +56,9 @@
         "dynamic-zone.features",
         "dynamic-zone.faq",
         "dynamic-zone.cta",
-        "dynamic-zone.brands"
+        "dynamic-zone.brands",
+        "dynamic-zone.service-grid",
+        "dynamic-zone.team-grid"
       ],
       "pluginOptions": {
         "i18n": {
