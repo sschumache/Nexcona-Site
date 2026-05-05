@@ -113,11 +113,6 @@
           "localized": false
         }
       }
-    },
-    "category": {
-      "type": "relation",
-      "relation": "manyToOne",
-      "target": "api::service-category.service-category"
     }
   }
 }
