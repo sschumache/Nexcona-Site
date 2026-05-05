@@ -10,42 +10,7 @@ import type { LocaleParamsProps } from '@/types/types';
 const pagePopulate = {
   seo: true,
   dynamic_zone: {
-    populate: {
-      globe_card: true,
-      ray_card: {
-        populate: ['before_ray_items', 'after_ray_items'],
-      },
-      graph_card: {
-        populate: ['top_items'],
-      },
-      social_media_card: {
-        populate: {
-          logos: {
-            populate: '*',
-          },
-        },
-      },
-      tech_stack_card: {
-        populate: {
-          logos: {
-            populate: '*',
-          },
-        },
-      },
-      slider_card: {
-        populate: {
-          items: {
-            populate: ['image'],
-          },
-        },
-      },
-      accordion_card: {
-        populate: ['items'],
-      },
-      business_value_card: {
-        populate: ['items'],
-      },
-    },
+    populate: '*',
   },
 };
 
