@@ -14,7 +14,6 @@ export async function generateMetadata({
 
   const [pageData] = await fetchCollectionType('pages', {
     filters: { slug: { $eq: 'homepage' }, locale },
-    populate: '*',
   });
 
   if (!pageData) return {};
@@ -29,22 +28,21 @@ export default async function HomePage({ params }: LocaleParamsProps) {
 
   const [pageData] = await fetchCollectionType('pages', {
     filters: { slug: { $eq: 'homepage' }, locale },
-    populate: '*',
   });
 
   if (!pageData) return notFound();
 
-  console.log('locale:', locale);
-  console.log('localizations:', JSON.stringify(pageData.localizations));
-  console.log('localizedSlugs keys:', pageData.localizations?.map((l: any) => l.locale));
+  const [dePageData] = await fetchCollectionType('pages', {
+    filters: { slug: { $eq: 'homepage' }, locale: 'de' },
+  });
 
-  const localizedSlugs = pageData.localizations?.reduce(
-    (acc: Record<string, string>, localization: any) => {
-      acc[localization.locale] = '';
-      return acc;
-    },
-    { [locale]: '' }
-  ) ?? { [locale]: '' };
+  const [enPageData] = await fetchCollectionType('pages', {
+    filters: { slug: { $eq: 'homepage' }, locale: 'en' },
+  });
+
+  const localizedSlugs: Record<string, string> = {};
+  if (enPageData) localizedSlugs['en'] = '';
+  if (dePageData) localizedSlugs['de'] = '';
 
   return (
     <>
