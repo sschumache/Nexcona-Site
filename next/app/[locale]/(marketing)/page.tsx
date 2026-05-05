@@ -32,17 +32,21 @@ export default async function HomePage({ params }: LocaleParamsProps) {
 
   if (!pageData) return notFound();
 
-  const [dePageData] = await fetchCollectionType('pages', {
-    filters: { slug: { $eq: 'homepage' }, locale: 'de' },
-  });
+  const localizedSlugs: Record<string, string> = { [locale]: '' };
 
-  const [enPageData] = await fetchCollectionType('pages', {
-    filters: { slug: { $eq: 'homepage' }, locale: 'en' },
-  });
+  try {
+    const [dePageData] = await fetchCollectionType('pages', {
+      filters: { slug: { $eq: 'homepage' }, locale: 'de' },
+    });
+    if (dePageData) localizedSlugs['de'] = '';
+  } catch {}
 
-  const localizedSlugs: Record<string, string> = {};
-  if (enPageData) localizedSlugs['en'] = '';
-  if (dePageData) localizedSlugs['de'] = '';
+  try {
+    const [enPageData] = await fetchCollectionType('pages', {
+      filters: { slug: { $eq: 'homepage' }, locale: 'en' },
+    });
+    if (enPageData) localizedSlugs['en'] = '';
+  } catch {}
 
   return (
     <>
