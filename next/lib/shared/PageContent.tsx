@@ -1,5 +1,3 @@
-'use client';
-
 import { AmbientColor } from '@/components/decorations/ambient-color';
 import DynamicZoneManager from '@/components/dynamic-zone/manager';
 import { fetchCollectionType } from '@/lib/strapi';
