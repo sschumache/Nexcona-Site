@@ -1,0 +1,13 @@
+{
+  "collectionName": "components_items_slider_card_items",
+  "info": {
+    "displayName": "Slider Card Item",
+    "icon": "bulletList",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "title": { "type": "string" },
+    "description": { "type": "text" }
+  }
+}

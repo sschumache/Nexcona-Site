@@ -1,0 +1,22 @@
+{
+  "collectionName": "components_cards_accordion_cards",
+  "info": {
+    "displayName": "Accordion Card",
+    "icon": "dashboard",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "title": { "type": "string" },
+    "description": { "type": "text" },
+    "items": {
+      "type": "component",
+      "repeatable": true,
+      "component": "items.accordion-card-item"
+    },
+    "span": {
+      "type": "enumeration",
+      "enum": ["one", "two", "three"]
+    }
+  }
+}

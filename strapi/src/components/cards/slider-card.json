@@ -1,0 +1,22 @@
+{
+  "collectionName": "components_cards_slider_cards",
+  "info": {
+    "displayName": "Slider Card",
+    "icon": "dashboard",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "title": { "type": "string" },
+    "description": { "type": "text" },
+    "items": {
+      "type": "component",
+      "repeatable": true,
+      "component": "items.slider-card-item"
+    },
+    "span": {
+      "type": "enumeration",
+      "enum": ["one", "two", "three"]
+    }
+  }
+}

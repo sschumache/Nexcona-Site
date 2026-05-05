@@ -6,15 +6,14 @@ export default async function PageContent({ pageData }: { pageData: any }) {
   const dynamicZone = pageData?.dynamic_zone;
   const locale = pageData?.locale;
 
-  // Prüfen ob team-grid oder service-grid in der dynamic zone ist
   const hasTeamGrid = dynamicZone?.some(
-    (c: any) => c.__component === 'dynamic-zone.team-grid'
-  );
-  const hasServiceGrid = dynamicZone?.some(
-    (c: any) => c.__component === 'dynamic-zone.service-grid'
+    (component: any) => component.__component === 'dynamic-zone.team-grid'
   );
 
-  // Daten fetchen wenn nötig
+  const hasServiceGrid = dynamicZone?.some(
+    (component: any) => component.__component === 'dynamic-zone.service-grid'
+  );
+
   const members = hasTeamGrid
     ? await fetchCollectionType('team-members', {
         locale,
@@ -27,18 +26,24 @@ export default async function PageContent({ pageData }: { pageData: any }) {
     ? await fetchCollectionType('services', {
         locale,
         sort: ['order:asc'],
-        populate: ['icon', 'image', 'CTA', 'features'],
+        populate: {
+          icon: true,
+          image: true,
+          CTA: true,
+          features: true,
+        },
       })
     : [];
 
-  // Daten in die dynamic zone einfügen
   const enrichedDynamicZone = dynamicZone?.map((component: any) => {
     if (component.__component === 'dynamic-zone.team-grid') {
       return { ...component, members };
     }
+
     if (component.__component === 'dynamic-zone.service-grid') {
       return { ...component, services };
     }
+
     return component;
   });
 
@@ -46,10 +51,7 @@ export default async function PageContent({ pageData }: { pageData: any }) {
     <div className="relative overflow-hidden w-full">
       <AmbientColor />
       {enrichedDynamicZone && (
-        <DynamicZoneManager
-          dynamicZone={enrichedDynamicZone}
-          locale={locale}
-        />
+        <DynamicZoneManager dynamicZone={enrichedDynamicZone} locale={locale} />
       )}
     </div>
   );

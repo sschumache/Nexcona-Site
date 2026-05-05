@@ -1,0 +1,22 @@
+{
+  "collectionName": "components_cards_business_value_cards",
+  "info": {
+    "displayName": "Business Value Card",
+    "icon": "dashboard",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "title": { "type": "string" },
+    "description": { "type": "text" },
+    "items": {
+      "type": "component",
+      "repeatable": true,
+      "component": "items.business-value-item"
+    },
+    "span": {
+      "type": "enumeration",
+      "enum": ["one", "two", "three"]
+    }
+  }
+}

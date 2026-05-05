@@ -1,0 +1,22 @@
+{
+  "collectionName": "components_cards_tech_stack_cards",
+  "info": {
+    "displayName": "Tech Stack Card",
+    "icon": "dashboard",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "title": { "type": "string" },
+    "description": { "type": "text" },
+    "logos": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::logo.logo"
+    },
+    "span": {
+      "type": "enumeration",
+      "enum": ["one", "two", "three"]
+    }
+  }
+}

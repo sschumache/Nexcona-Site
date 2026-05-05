@@ -36,6 +36,30 @@
       "type": "component",
       "repeatable": false,
       "component": "cards.social-media-card"
+    },
+    "tech_stack_card": {
+      "displayName": "Tech Stack",
+      "type": "component",
+      "repeatable": false,
+      "component": "cards.tech-stack-card"
+    },
+    "slider_card": {
+      "displayName": "Slider",
+      "type": "component",
+      "repeatable": false,
+      "component": "cards.slider-card"
+    },
+    "accordion_card": {
+      "displayName": "Accordion",
+      "type": "component",
+      "repeatable": false,
+      "component": "cards.accordion-card"
+    },
+    "business_value_card": {
+      "displayName": "Business Value",
+      "type": "component",
+      "repeatable": false,
+      "component": "cards.business-value-card"
     }
   }
 }

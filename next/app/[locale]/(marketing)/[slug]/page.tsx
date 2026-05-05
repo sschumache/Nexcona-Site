@@ -7,6 +7,44 @@ import { generateMetadataObject } from '@/lib/shared/metadata';
 import { fetchCollectionType } from '@/lib/strapi';
 import type { LocaleSlugParamsProps } from '@/types/types';
 
+const pagePopulate = {
+  seo: true,
+  dynamic_zone: {
+    populate: {
+      globe_card: true,
+      ray_card: {
+        populate: ['before_ray_items', 'after_ray_items'],
+      },
+      graph_card: {
+        populate: ['top_items'],
+      },
+      social_media_card: {
+        populate: {
+          logos: {
+            populate: '*',
+          },
+        },
+      },
+      tech_stack_card: {
+        populate: {
+          logos: {
+            populate: '*',
+          },
+        },
+      },
+      slider_card: {
+        populate: ['items'],
+      },
+      accordion_card: {
+        populate: ['items'],
+      },
+      business_value_card: {
+        populate: ['items'],
+      },
+    },
+  },
+};
+
 export async function generateMetadata({
   params,
 }: LocaleSlugParamsProps): Promise<Metadata> {
@@ -14,19 +52,20 @@ export async function generateMetadata({
 
   let [pageData] = await fetchCollectionType('pages', {
     filters: { slug: { $eq: slug }, locale },
+    populate: pagePopulate,
   });
 
   if (!pageData) {
     [pageData] = await fetchCollectionType('pages', {
       filters: { slug: { $eq: slug }, locale: 'en' },
+      populate: pagePopulate,
     });
   }
 
   if (!pageData) return {};
 
   const seo = pageData.seo;
-  const metadata = generateMetadataObject(seo);
-  return metadata;
+  return generateMetadataObject(seo);
 }
 
 export default async function Page({ params }: LocaleSlugParamsProps) {
@@ -34,11 +73,13 @@ export default async function Page({ params }: LocaleSlugParamsProps) {
 
   let [pageData] = await fetchCollectionType('pages', {
     filters: { slug: { $eq: slug }, locale },
+    populate: pagePopulate,
   });
 
   if (!pageData) {
     [pageData] = await fetchCollectionType('pages', {
       filters: { slug: { $eq: slug }, locale: 'en' },
+      populate: pagePopulate,
     });
   }
 
@@ -50,14 +91,14 @@ export default async function Page({ params }: LocaleSlugParamsProps) {
     const [dePageData] = await fetchCollectionType('pages', {
       filters: { slug: { $eq: slug }, locale: 'de' },
     });
-    if (dePageData) localizedSlugs['de'] = (dePageData as any).slug ?? slug;
+    if (dePageData) localizedSlugs.de = (dePageData as any).slug ?? slug;
   } catch {}
 
   try {
     const [enPageData] = await fetchCollectionType('pages', {
       filters: { slug: { $eq: slug }, locale: 'en' },
     });
-    if (enPageData) localizedSlugs['en'] = (enPageData as any).slug ?? slug;
+    if (enPageData) localizedSlugs.en = (enPageData as any).slug ?? slug;
   } catch {}
 
   return (

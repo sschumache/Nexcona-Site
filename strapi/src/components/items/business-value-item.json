@@ -1,0 +1,13 @@
+{
+  "collectionName": "components_items_business_value_items",
+  "info": {
+    "displayName": "Business Value Item",
+    "icon": "bulletList",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "value": { "type": "string" },
+    "label": { "type": "string" }
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "collectionName": "components_items_accordion_card_items",
+  "info": {
+    "displayName": "Accordion Card Item",
+    "icon": "bulletList",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "title": { "type": "string" },
+    "description": { "type": "text" }
+  }
+}

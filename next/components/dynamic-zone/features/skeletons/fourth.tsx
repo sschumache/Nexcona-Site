@@ -6,101 +6,86 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { IconContainer } from '../icon-container';
 import ShootingStars from '@/components/decorations/shooting-star';
 import StarBackground from '@/components/decorations/star-background';
-import {
-  FacebookIcon,
-  InstagramIcon,
-  LinkedInIcon,
-  MetaIcon,
-  SlackIcon,
-  TiktokIcon,
-  TwitterIcon,
-} from '@/components/icons/illustrations';
 import { cn } from '@/lib/utils';
 
-var loopInterval: NodeJS.Timeout;
-export const SkeletonFour = () => {
-  const icons = useMemo(
-    () => [
-      {
-        title: 'Twitter',
-        icon: TwitterIcon,
-        className: 'left-2 top-2',
-      },
-      {
-        title: 'Meta2',
-        icon: MetaIcon,
-        className: 'left-32 top-32',
-      },
-      {
-        title: 'Instagram',
-        icon: InstagramIcon,
-        className: 'left-1/2 top-1/2',
-      },
-      {
-        title: 'LinkedIn2',
-        icon: LinkedInIcon,
-        className: 'left-1/2 top-20',
-      },
-      {
-        title: 'Facebook',
-        icon: FacebookIcon,
-        className: 'right-20 top-20',
-      },
-      {
-        title: 'Slack2',
-        icon: SlackIcon,
-        className: 'right-20 bottom-0',
-      },
-      {
-        title: 'Tiktok',
-        icon: TiktokIcon,
-        className: 'left-52 bottom-10',
-      },
-      {
-        title: 'Meta',
-        icon: MetaIcon,
-        className: 'left-32 bottom-60',
-      },
-      {
-        title: 'Twitter2',
-        icon: TwitterIcon,
-        className: 'right-96 top-24',
-      },
-      {
-        title: 'Instagram2',
-        icon: InstagramIcon,
-        className: 'left-10 bottom-0',
-      },
-      {
-        title: 'LinkedIn',
-        icon: LinkedInIcon,
-        className: 'right-40 top-0',
-      },
-      {
-        title: 'Facebook2',
-        icon: FacebookIcon,
-        className: 'right-40 top-40',
-      },
-      {
-        title: 'Slack',
-        icon: SlackIcon,
-        className: 'right-0 bottom-60',
-      },
-      {
-        title: 'Tiktok2',
-        icon: TiktokIcon,
-        className: 'right-10 bottom-80',
-      },
-    ],
-    []
-  );
+type CmsLogo = {
+  id?: number;
+  title?: string;
+  name?: string;
+  url?: string;
+  image?: {
+    url?: string;
+    alternativeText?: string;
+  };
+  logo?: {
+    url?: string;
+    alternativeText?: string;
+  };
+};
 
-  const [active, setActive] = useState(icons[0]);
+type PositionedLogo = {
+  title: string;
+  imageUrl: string;
+  alt: string;
+  className: string;
+};
+
+const positions = [
+  'left-2 top-2',
+  'left-32 top-32',
+  'left-1/2 top-1/2',
+  'left-1/2 top-20',
+  'right-20 top-20',
+  'right-20 bottom-0',
+  'left-52 bottom-10',
+  'left-32 bottom-60',
+  'right-96 top-24',
+  'left-10 bottom-0',
+  'right-40 top-0',
+  'right-40 top-40',
+  'right-0 bottom-60',
+  'right-10 bottom-80',
+];
+
+let loopInterval: NodeJS.Timeout;
+
+export const SkeletonFour = ({ logos = [] }: { logos?: CmsLogo[] }) => {
+  const icons = useMemo<PositionedLogo[]>(() => {
+    return logos
+      .map((logo, index) => {
+        const imageUrl =
+          logo?.image?.url ||
+          logo?.logo?.url ||
+          logo?.url;
+
+        if (!imageUrl) return null;
+
+        return {
+          title: logo?.title || logo?.name || `Logo ${index + 1}`,
+          imageUrl,
+          alt:
+            logo?.image?.alternativeText ||
+            logo?.logo?.alternativeText ||
+            logo?.title ||
+            logo?.name ||
+            'Logo',
+          className: positions[index % positions.length],
+        };
+      })
+      .filter(Boolean) as PositionedLogo[];
+  }, [logos]);
+
+  const [active, setActive] = useState<PositionedLogo | null>(null);
 
   useEffect(() => {
+    if (!icons.length) return;
+
+    setActive(icons[0]);
+
     loopInterval = setInterval(() => {
       setActive(icons[Math.floor(Math.random() * icons.length)]);
     }, 3000);
+
     return () => clearInterval(loopInterval);
   }, [icons]);
 
@@ -112,18 +97,23 @@ export const SkeletonFour = () => {
       {icons.map((icon) => (
         <IconContainer
           className={cn(
-            'rounded-full opacity-20 mx-2 absolute',
+            'rounded-full opacity-20 mx-2 absolute bg-white',
             icon.className,
-            active.title === icon.title && 'opacity-100'
+            active?.title === icon.title && 'opacity-100'
           )}
           key={icon.title}
         >
-          {<icon.icon />}
-          {active.title === icon.title && (
+          <img
+            src={icon.imageUrl}
+            alt={icon.alt}
+            className="h-8 w-8 object-contain"
+          />
+
+          {active?.title === icon.title && (
             <motion.div
               layoutId="bubble"
-              className="absolute h-16 w-16 inset-0 rounded-full border-2  -ml-0.5 -mt-0.5 border-indigo-500"
-            ></motion.div>
+              className="absolute h-16 w-16 inset-0 rounded-full border-2 -ml-0.5 -mt-0.5 border-indigo-500"
+            />
           )}
         </IconContainer>
       ))}
