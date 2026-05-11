@@ -8,6 +8,10 @@ import DynamicZoneManager from './dynamic-zone/manager';
 import { StrapiImage } from '@/components/ui/strapi-image';
 import { Article } from '@/types/types';
 
+const t = (locale: string) => ({
+  back: locale === 'de' ? 'Zurück' : 'Back',
+});
+
 export async function BlogLayout({
   article,
   locale,
@@ -17,6 +21,8 @@ export async function BlogLayout({
   locale: string;
   children: React.ReactNode;
 }>) {
+  const i18n = t(locale);
+
   return (
     <div className="relative overflow-hidden bg-white text-[#2B2B2B]">
       <Container className="mt-16 lg:mt-32">
@@ -26,7 +32,7 @@ export async function BlogLayout({
             className="flex items-center space-x-2 text-[#666666] transition hover:text-[#003F6B]"
           >
             <IconArrowLeft className="h-4 w-4" />
-            <span className="text-sm">Back</span>
+            <span className="text-sm">{i18n.back}</span>
           </Link>
         </div>
 

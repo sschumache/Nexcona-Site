@@ -8,6 +8,12 @@ import React, { useEffect, useState } from 'react';
 import { truncate } from '@/lib/utils';
 import { Article } from '@/types/types';
 
+const t = (locale: string) => ({
+  morePosts: locale === 'de' ? 'Weitere Beiträge' : 'More Posts',
+  search:    locale === 'de' ? 'Beiträge suchen' : 'Search articles',
+  noResults: locale === 'de' ? 'Keine Ergebnisse gefunden' : 'No results found',
+});
+
 export const BlogPostRows = ({
   articles,
   locale,
@@ -16,6 +22,7 @@ export const BlogPostRows = ({
   locale: string;
 }) => {
   const [search, setSearch] = useState('');
+  const i18n = t(locale);
 
   const searcher = new FuzzySearch(articles, ['title'], {
     caseSensitive: false,
@@ -31,20 +38,20 @@ export const BlogPostRows = ({
   return (
     <div className="w-full py-20">
       <div className="mb-10 flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-center">
-        <p className="text-2xl font-bold text-[#2B2B2B]">More Posts</p>
+        <p className="text-2xl font-bold text-[#2B2B2B]">{i18n.morePosts}</p>
 
         <input
           type="text"
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-          placeholder="Search articles"
+          placeholder={i18n.search}
           className="min-w-full rounded-md border border-[#E2E2E2] bg-white p-2 text-sm text-[#2B2B2B] placeholder-[#999999] outline-none transition focus:border-[#003F6B] sm:min-w-96"
         />
       </div>
 
       <div className="divide-y divide-[#E2E2E2]">
         {results.length === 0 ? (
-          <p className="p-4 text-center text-[#666666]">No results found</p>
+          <p className="p-4 text-center text-[#666666]">{i18n.noResults}</p>
         ) : (
           results.map((article, index) => (
             <BlogPostRow
@@ -66,6 +73,8 @@ export const BlogPostRow = ({
   article: Article;
   locale: string;
 }) => {
+  const i18n = t(locale);
+
   return (
     <Link
       href={`/${locale}/blog/${article.slug}`}

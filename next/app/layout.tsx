@@ -14,7 +14,7 @@ export const viewport: Viewport = {
 
 export const metadata: Metadata = {
   icons: {
-    icon: [{ url: '/favicon.ico', sizes: 'any' }],  // ← expliziter
+    icon: [{ url: '/favicon.ico', sizes: 'any' }],
   },
 };
 
@@ -32,15 +32,11 @@ function RootLoading() {
 
 export default function RootLayout({
   children,
-  params,
 }: Readonly<{
   children: React.ReactNode;
-  params?: { lang?: string };  // ← lang aus params lesen
 }>) {
-  const lang = params?.lang ?? 'de';  // ← dein Default-Locale
-
   return (
-    <html lang={lang} suppressHydrationWarning>  {/* ← dynamisch */}
+    <html lang="de" suppressHydrationWarning>
       <body suppressHydrationWarning>
         <Preview />
         <SlugProvider>

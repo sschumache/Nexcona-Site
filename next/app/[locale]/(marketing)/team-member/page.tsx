@@ -53,7 +53,6 @@ export default async function TeamMemberPage({ params }: LocaleParamsProps) {
     const deMembers = await fetchCollectionType('team-members', {
       locale: 'de',
     });
-
     if (deMembers) localizedSlugs.de = '';
   } catch {}
 
@@ -61,7 +60,6 @@ export default async function TeamMemberPage({ params }: LocaleParamsProps) {
     const enMembers = await fetchCollectionType('team-members', {
       locale: 'en',
     });
-
     if (enMembers) localizedSlugs.en = '';
   } catch {}
 
@@ -91,7 +89,7 @@ export default async function TeamMemberPage({ params }: LocaleParamsProps) {
 
       <Container className="pb-40">
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-12 md:gap-16">
-            {normalizedMembers.map((member) => (
+          {normalizedMembers.map((member) => (
             <TeamCard key={member.id} member={member} />
           ))}
         </div>
@@ -109,6 +107,18 @@ export default async function TeamMemberPage({ params }: LocaleParamsProps) {
 
       <div className="border-t border-[#E2E2E2] bg-[#F8F9FA]">
         <Container className="py-24">
+
+          <div className="text-center mb-16">
+            <Heading as="h2" size="xl">
+              {locale === 'de' ? 'Unsere Werte & Säulen' : 'Our Values & Pillars'}
+            </Heading>
+            <Subheading className="mt-4 max-w-2xl mx-auto">
+              {locale === 'de'
+                ? 'Wir handeln jederzeit nach unseren Werten – sie sind die Grundlage jeder Entscheidung und jeder Partnerschaft.'
+                : 'We act according to our values at all times – they are the foundation of every decision and every partnership.'}
+            </Subheading>
+          </div>
+
           <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
             {[
               {
@@ -146,6 +156,9 @@ export default async function TeamMemberPage({ params }: LocaleParamsProps) {
           </div>
         </Container>
       </div>
+
+      {/* Abstandhalter zum Footer */}
+      <div className="h-24" />
     </div>
   );
 }
