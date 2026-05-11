@@ -1,10 +1,7 @@
 import type { Metadata, Viewport } from 'next';
 import { Suspense } from 'react';
-
 import { i18n } from '@/i18n.config';
-
 import './globals.css';
-
 import { SlugProvider } from '@/app/context/SlugContext';
 import { Preview } from '@/components/preview';
 
@@ -17,7 +14,7 @@ export const viewport: Viewport = {
 
 export const metadata: Metadata = {
   icons: {
-    icon: '/favicon.ico',
+    icon: [{ url: '/favicon.ico', sizes: 'any' }],  // ← expliziter
   },
 };
 
@@ -35,11 +32,15 @@ function RootLoading() {
 
 export default function RootLayout({
   children,
+  params,
 }: Readonly<{
   children: React.ReactNode;
+  params?: { lang?: string };  // ← lang aus params lesen
 }>) {
+  const lang = params?.lang ?? 'de';  // ← dein Default-Locale
+
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang={lang} suppressHydrationWarning>  {/* ← dynamisch */}
       <body suppressHydrationWarning>
         <Preview />
         <SlugProvider>

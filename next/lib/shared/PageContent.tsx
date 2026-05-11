@@ -19,36 +19,31 @@ export default async function PageContent({
     (component: any) => component.__component === 'dynamic-zone.service-grid'
   );
 
+  // Locale als top-level Parameter, nicht verschachtelt
   const members = hasTeamGrid
     ? await fetchCollectionType('team-members', {
-        locale,
+        locale,                    // ← direkt, nicht in filters
         sort: ['order:asc'],
-        populate: ['image'],
-      })
+        populate: {
+          image: true,             // ← explizit statt Array
+        },
+      }).catch(() => [])           // ← kein Crash wenn leer/Fehler
     : [];
 
   const services = hasServiceGrid
     ? await fetchCollectionType('services', {
         locale,
         sort: ['order:asc'],
-      })
+      }).catch(() => [])
     : [];
 
   const enrichedDynamicZone = dynamicZone.map((component: any) => {
     if (component.__component === 'dynamic-zone.team-grid') {
-      return {
-        ...component,
-        members,
-      };
+      return { ...component, members };
     }
-
     if (component.__component === 'dynamic-zone.service-grid') {
-      return {
-        ...component,
-        services,
-      };
+      return { ...component, services };
     }
-
     return component;
   });
 
