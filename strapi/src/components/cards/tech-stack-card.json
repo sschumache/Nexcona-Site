@@ -1,14 +1,18 @@
 {
   "collectionName": "components_cards_tech_stack_cards",
   "info": {
-    "displayName": "Tech Stack Card",
-    "icon": "dashboard",
+    "displayName": "Tech_Stack_Card",
+    "icon": "cog",
     "description": ""
   },
   "options": {},
   "attributes": {
-    "title": { "type": "string" },
-    "description": { "type": "text" },
+    "title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "text"
+    },
     "logos": {
       "type": "relation",
       "relation": "oneToMany",
@@ -16,7 +20,11 @@
     },
     "span": {
       "type": "enumeration",
-      "enum": ["one", "two", "three"]
+      "enum": [
+        "one",
+        "two",
+        "three"
+      ]
     }
   }
 }

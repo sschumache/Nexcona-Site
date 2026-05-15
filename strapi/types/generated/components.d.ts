@@ -4,7 +4,7 @@ export interface CardsAccordionCard extends Struct.ComponentSchema {
   collectionName: 'components_cards_accordion_cards';
   info: {
     description: '';
-    displayName: 'Accordion Card';
+    displayName: 'Accordion_Card';
     icon: 'dashboard';
   };
   attributes: {
@@ -19,7 +19,7 @@ export interface CardsBusinessValueCard extends Struct.ComponentSchema {
   collectionName: 'components_cards_business_value_cards';
   info: {
     description: '';
-    displayName: 'Business Value Card';
+    displayName: 'Business_Value_Card';
     icon: 'dashboard';
   };
   attributes: {
@@ -80,8 +80,8 @@ export interface CardsSliderCard extends Struct.ComponentSchema {
   collectionName: 'components_cards_slider_cards';
   info: {
     description: '';
-    displayName: 'Slider Card';
-    icon: 'dashboard';
+    displayName: 'Slider_Card';
+    icon: 'bulletList';
   };
   attributes: {
     description: Schema.Attribute.Text;
@@ -110,8 +110,8 @@ export interface CardsTechStackCard extends Struct.ComponentSchema {
   collectionName: 'components_cards_tech_stack_cards';
   info: {
     description: '';
-    displayName: 'Tech Stack Card';
-    icon: 'dashboard';
+    displayName: 'Tech_Stack_Card';
+    icon: 'cog';
   };
   attributes: {
     description: Schema.Attribute.Text;

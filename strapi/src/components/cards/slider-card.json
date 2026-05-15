@@ -1,22 +1,30 @@
 {
   "collectionName": "components_cards_slider_cards",
   "info": {
-    "displayName": "Slider Card",
-    "icon": "dashboard",
+    "displayName": "Slider_Card",
+    "icon": "bulletList",
     "description": ""
   },
   "options": {},
   "attributes": {
-    "title": { "type": "string" },
-    "description": { "type": "text" },
+    "title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "text"
+    },
     "items": {
       "type": "component",
-      "repeatable": true,
-      "component": "items.slider-card-item"
+      "component": "items.slider-card-item",
+      "repeatable": true
     },
     "span": {
       "type": "enumeration",
-      "enum": ["one", "two", "three"]
+      "enum": [
+        "one",
+        "two",
+        "three"
+      ]
     }
   }
 }
