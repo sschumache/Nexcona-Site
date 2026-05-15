@@ -128,3 +128,13 @@ dist
 build
 .strapi-updater.json
 .strapi-cloud.json
+
+############################
+# Environment
+############################
+
+.env
+.env.local
+.env*.local
+.env.production
+.env.staging
