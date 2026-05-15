@@ -1,5 +1,35 @@
 import type { Schema, Struct } from '@strapi/strapi';
 
+export interface CardsAccordionCard extends Struct.ComponentSchema {
+  collectionName: 'components_cards_accordion_cards';
+  info: {
+    description: '';
+    displayName: 'Accordion Card';
+    icon: 'dashboard';
+  };
+  attributes: {
+    description: Schema.Attribute.Text;
+    items: Schema.Attribute.Component<'items.accordion-card-item', true>;
+    span: Schema.Attribute.Enumeration<['one', 'two', 'three']>;
+    title: Schema.Attribute.String;
+  };
+}
+
+export interface CardsBusinessValueCard extends Struct.ComponentSchema {
+  collectionName: 'components_cards_business_value_cards';
+  info: {
+    description: '';
+    displayName: 'Business Value Card';
+    icon: 'dashboard';
+  };
+  attributes: {
+    description: Schema.Attribute.Text;
+    items: Schema.Attribute.Component<'items.business-value-item', true>;
+    span: Schema.Attribute.Enumeration<['one', 'two', 'three']>;
+    title: Schema.Attribute.String;
+  };
+}
+
 export interface CardsGlobeCard extends Struct.ComponentSchema {
   collectionName: 'components_cards_globe_cards';
   info: {
@@ -46,6 +76,21 @@ export interface CardsRayCard extends Struct.ComponentSchema {
   };
 }
 
+export interface CardsSliderCard extends Struct.ComponentSchema {
+  collectionName: 'components_cards_slider_cards';
+  info: {
+    description: '';
+    displayName: 'Slider Card';
+    icon: 'dashboard';
+  };
+  attributes: {
+    description: Schema.Attribute.Text;
+    items: Schema.Attribute.Component<'items.slider-card-item', true>;
+    span: Schema.Attribute.Enumeration<['one', 'two', 'three']>;
+    title: Schema.Attribute.String;
+  };
+}
+
 export interface CardsSocialMediaCard extends Struct.ComponentSchema {
   collectionName: 'components_cards_social_media_cards';
   info: {
@@ -58,6 +103,21 @@ export interface CardsSocialMediaCard extends Struct.ComponentSchema {
     logos: Schema.Attribute.Relation<'oneToMany', 'api::logo.logo'>;
     span: Schema.Attribute.Enumeration<['one', 'two', 'three']>;
     Title: Schema.Attribute.String;
+  };
+}
+
+export interface CardsTechStackCard extends Struct.ComponentSchema {
+  collectionName: 'components_cards_tech_stack_cards';
+  info: {
+    description: '';
+    displayName: 'Tech Stack Card';
+    icon: 'dashboard';
+  };
+  attributes: {
+    description: Schema.Attribute.Text;
+    logos: Schema.Attribute.Relation<'oneToMany', 'api::logo.logo'>;
+    span: Schema.Attribute.Enumeration<['one', 'two', 'three']>;
+    title: Schema.Attribute.String;
   };
 }
 
@@ -110,15 +170,22 @@ export interface DynamicZoneFeatures extends Struct.ComponentSchema {
     icon: 'bulletList';
   };
   attributes: {
+    accordion_card: Schema.Attribute.Component<'cards.accordion-card', false>;
+    business_value_card: Schema.Attribute.Component<
+      'cards.business-value-card',
+      false
+    >;
     globe_card: Schema.Attribute.Component<'cards.globe-card', false>;
     graph_card: Schema.Attribute.Component<'cards.graph-card', false>;
     heading: Schema.Attribute.String;
     ray_card: Schema.Attribute.Component<'cards.ray-card', false>;
+    slider_card: Schema.Attribute.Component<'cards.slider-card', false>;
     social_media_card: Schema.Attribute.Component<
       'cards.social-media-card',
       false
     >;
     sub_heading: Schema.Attribute.String;
+    tech_stack_card: Schema.Attribute.Component<'cards.tech-stack-card', false>;
   };
 }
 
@@ -224,6 +291,45 @@ export interface DynamicZoneRelatedProducts extends Struct.ComponentSchema {
   };
 }
 
+export interface DynamicZoneServiceGrid extends Struct.ComponentSchema {
+  collectionName: 'components_sections_service_grids';
+  info: {
+    displayName: 'Service Grid';
+    icon: 'apps';
+  };
+  attributes: {
+    limit: Schema.Attribute.Integer & Schema.Attribute.DefaultTo<6>;
+    subtitle: Schema.Attribute.Text;
+    title: Schema.Attribute.String;
+  };
+}
+
+export interface DynamicZoneSolution extends Struct.ComponentSchema {
+  collectionName: 'components_dynamic_zone_solutions';
+  info: {
+    displayName: 'Solution';
+    icon: 'cog';
+  };
+  attributes: {
+    items: Schema.Attribute.Component<'shared.feature', true>;
+    subtitle: Schema.Attribute.Text;
+    title: Schema.Attribute.String & Schema.Attribute.Required;
+  };
+}
+
+export interface DynamicZoneTeamGrid extends Struct.ComponentSchema {
+  collectionName: 'components_sections_team_grids';
+  info: {
+    displayName: 'Team Grid';
+    icon: 'user';
+  };
+  attributes: {
+    limit: Schema.Attribute.Integer & Schema.Attribute.DefaultTo<6>;
+    subtitle: Schema.Attribute.Text;
+    title: Schema.Attribute.String;
+  };
+}
+
 export interface DynamicZoneTestimonials extends Struct.ComponentSchema {
   collectionName: 'components_dynamic_zone_testimonials';
   info: {
@@ -270,6 +376,32 @@ export interface GlobalNavbar extends Struct.ComponentSchema {
     left_navbar_items: Schema.Attribute.Component<'shared.link', true>;
     logo: Schema.Attribute.Relation<'oneToOne', 'api::logo.logo'>;
     right_navbar_items: Schema.Attribute.Component<'shared.link', true>;
+  };
+}
+
+export interface ItemsAccordionCardItem extends Struct.ComponentSchema {
+  collectionName: 'components_items_accordion_card_items';
+  info: {
+    description: '';
+    displayName: 'Accordion Card Item';
+    icon: 'bulletList';
+  };
+  attributes: {
+    description: Schema.Attribute.Text;
+    title: Schema.Attribute.String;
+  };
+}
+
+export interface ItemsBusinessValueItem extends Struct.ComponentSchema {
+  collectionName: 'components_items_business_value_items';
+  info: {
+    description: '';
+    displayName: 'Business Value Item';
+    icon: 'bulletList';
+  };
+  attributes: {
+    label: Schema.Attribute.String;
+    value: Schema.Attribute.String;
   };
 }
 
@@ -352,6 +484,21 @@ export interface ItemsRayItems extends Struct.ComponentSchema {
   };
 }
 
+export interface ItemsSliderCardItem extends Struct.ComponentSchema {
+  collectionName: 'components_items_slider_card_items';
+  info: {
+    description: 'Ein einzelnes Element im Slider (Bild + Text)';
+    displayName: 'Slider Card Item';
+    icon: 'bulletList';
+  };
+  attributes: {
+    description: Schema.Attribute.Text;
+    image: Schema.Attribute.Media<'images'>;
+    subtitle: Schema.Attribute.String;
+    title: Schema.Attribute.String;
+  };
+}
+
 export interface SharedButton extends Struct.ComponentSchema {
   collectionName: 'components_shared_buttons';
   info: {
@@ -369,6 +516,18 @@ export interface SharedButton extends Struct.ComponentSchema {
       ['simple', 'outline', 'primary', 'muted']
     > &
       Schema.Attribute.DefaultTo<'primary'>;
+  };
+}
+
+export interface SharedFeature extends Struct.ComponentSchema {
+  collectionName: 'components_shared_features';
+  info: {
+    displayName: 'Feature';
+  };
+  attributes: {
+    icon: Schema.Attribute.String;
+    text: Schema.Attribute.Text;
+    title: Schema.Attribute.String;
   };
 }
 
@@ -508,10 +667,14 @@ export interface SharedUser extends Struct.ComponentSchema {
 declare module '@strapi/strapi' {
   export module Public {
     export interface ComponentSchemas {
+      'cards.accordion-card': CardsAccordionCard;
+      'cards.business-value-card': CardsBusinessValueCard;
       'cards.globe-card': CardsGlobeCard;
       'cards.graph-card': CardsGraphCard;
       'cards.ray-card': CardsRayCard;
+      'cards.slider-card': CardsSliderCard;
       'cards.social-media-card': CardsSocialMediaCard;
+      'cards.tech-stack-card': CardsTechStackCard;
       'dynamic-zone.brands': DynamicZoneBrands;
       'dynamic-zone.cta': DynamicZoneCta;
       'dynamic-zone.faq': DynamicZoneFaq;
@@ -523,14 +686,21 @@ declare module '@strapi/strapi' {
       'dynamic-zone.pricing': DynamicZonePricing;
       'dynamic-zone.related-articles': DynamicZoneRelatedArticles;
       'dynamic-zone.related-products': DynamicZoneRelatedProducts;
+      'dynamic-zone.service-grid': DynamicZoneServiceGrid;
+      'dynamic-zone.solution': DynamicZoneSolution;
+      'dynamic-zone.team-grid': DynamicZoneTeamGrid;
       'dynamic-zone.testimonials': DynamicZoneTestimonials;
       'global.footer': GlobalFooter;
       'global.navbar': GlobalNavbar;
+      'items.accordion-card-item': ItemsAccordionCardItem;
+      'items.business-value-item': ItemsBusinessValueItem;
       'items.graph-card-top-items': ItemsGraphCardTopItems;
       'items.input': ItemsInput;
       'items.left-navbar-items': ItemsLeftNavbarItems;
       'items.ray-items': ItemsRayItems;
+      'items.slider-card-item': ItemsSliderCardItem;
       'shared.button': SharedButton;
+      'shared.feature': SharedFeature;
       'shared.form': SharedForm;
       'shared.launches': SharedLaunches;
       'shared.link': SharedLink;
