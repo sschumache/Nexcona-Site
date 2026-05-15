@@ -46,10 +46,10 @@ const componentMapping: { [key: string]: any } = {
   'dynamic-zone.related-articles': dynamic(() =>
     import('./related-articles').then((mod) => mod.RelatedArticles)
   ),
-  'dynamic-zone.team-grid': dynamic(() =>
+  'dynamic-zone.related-teammember': dynamic(() =>
     import('./team-grid').then((mod) => mod.TeamGrid)
   ),
-  'dynamic-zone.service-grid': dynamic(() =>
+  'dynamic-zone.related-services': dynamic(() =>
     import('./service-grid').then((mod) => mod.ServiceGrid)
   ),
   'dynamic-zone.solution': dynamic(() =>
