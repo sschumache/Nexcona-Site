@@ -19,15 +19,14 @@ export default async function PageContent({
     (component: any) => component.__component === 'dynamic-zone.service-grid'
   );
 
-  // Locale als top-level Parameter, nicht verschachtelt
   const members = hasTeamGrid
     ? await fetchCollectionType('team-members', {
-        locale, // ← direkt, nicht in filters
+        locale,
         sort: ['order:asc'],
         populate: {
-          image: true, // ← explizit statt Array
+          image: true,
         },
-      }).catch(() => []) // ← kein Crash wenn leer/Fehler
+      }).catch(() => [])
     : [];
 
   const services = hasServiceGrid
@@ -46,6 +45,16 @@ export default async function PageContent({
     }
     return component;
   });
+
+  // Debug logs
+  console.log(
+    'Dynamic Zone Components:',
+    dynamicZone.map((c: any) => c.__component)
+  );
+  console.log('Has TeamGrid:', hasTeamGrid);
+  console.log('Has ServiceGrid:', hasServiceGrid);
+  console.log('Members count:', (members as any[]).length);
+  console.log('Services count:', (services as any[]).length);
 
   return (
     <div className="relative overflow-hidden w-full">
