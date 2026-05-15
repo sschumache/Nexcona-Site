@@ -1,7 +1,7 @@
 {
   "collectionName": "components_sections_team_grids",
   "info": {
-    "displayName": "Team Grid",
+    "displayName": "related_teammember",
     "icon": "user"
   },
   "attributes": {
@@ -10,6 +10,11 @@
     },
     "subtitle": {
       "type": "text"
+    },
+    "team_members": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::team-member.team-member"
     },
     "limit": {
       "type": "integer",

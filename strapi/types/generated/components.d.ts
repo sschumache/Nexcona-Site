@@ -294,11 +294,12 @@ export interface DynamicZoneRelatedProducts extends Struct.ComponentSchema {
 export interface DynamicZoneServiceGrid extends Struct.ComponentSchema {
   collectionName: 'components_sections_service_grids';
   info: {
-    displayName: 'Service Grid';
+    displayName: 'related_services';
     icon: 'apps';
   };
   attributes: {
     limit: Schema.Attribute.Integer & Schema.Attribute.DefaultTo<6>;
+    services: Schema.Attribute.Relation<'oneToMany', 'api::service.service'>;
     subtitle: Schema.Attribute.Text;
     title: Schema.Attribute.String;
   };
@@ -320,12 +321,16 @@ export interface DynamicZoneSolution extends Struct.ComponentSchema {
 export interface DynamicZoneTeamGrid extends Struct.ComponentSchema {
   collectionName: 'components_sections_team_grids';
   info: {
-    displayName: 'Team Grid';
+    displayName: 'related_teammember';
     icon: 'user';
   };
   attributes: {
     limit: Schema.Attribute.Integer & Schema.Attribute.DefaultTo<6>;
     subtitle: Schema.Attribute.Text;
+    team_members: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::team-member.team-member'
+    >;
     title: Schema.Attribute.String;
   };
 }
