@@ -3,6 +3,10 @@ docs
 .DS_Store
 .vscode
 .env
+.env.local
+.env*.local
+.env.production
+.env.staging
 .claude/settings.local.json
 .pnp.*
 .yarn/*
@@ -13,13 +17,3 @@ docs
 !.yarn/versions
 # Sentry Config File
 .env.sentry-build-plugin
-
-############################
-# Environment
-############################
-
-.env
-.env.local
-.env*.local
-.env.production
-.env.staging
