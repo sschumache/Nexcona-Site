@@ -12,20 +12,14 @@ export const Solution = ({ title, subtitle, items }: any) => {
           {title}
         </Heading>
         {subtitle && (
-          <Subheading className="mt-6 max-w-2xl mx-auto">
-            {subtitle}
-          </Subheading>
+          <Subheading className="mt-6 max-w-2xl mx-auto">{subtitle}</Subheading>
         )}
       </div>
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-10">
         {items?.map((item: any, i: number) => (
           <div key={i}>
-            <h3 className="text-lg font-medium text-[#2B2B2B]">
-              {item.title}
-            </h3>
-            <p className="mt-2 text-sm text-[#666666]">
-              {item.text}
-            </p>
+            <h3 className="text-lg font-medium text-[#2B2B2B]">{item.title}</h3>
+            <p className="mt-2 text-sm text-[#666666]">{item.text}</p>
           </div>
         ))}
       </div>

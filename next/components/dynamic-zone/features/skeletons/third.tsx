@@ -24,11 +24,7 @@ export const SkeletonThree = ({
     if (animating) return;
 
     setAnimating(true);
-    await animate(
-      '.message',
-      { scale: [0, 1] },
-      { duration: 0.4 }
-    );
+    await animate('.message', { scale: [0, 1] }, { duration: 0.4 });
     setAnimating(false);
   };
 

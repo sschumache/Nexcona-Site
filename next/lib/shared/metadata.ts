@@ -4,7 +4,8 @@ export function generateMetadataObject(seo: any) {
   return {
     title: seo?.metaTitle || 'Default Title',
     description: seo?.metaDescription || 'Default Description',
-    icons: {                                        // ← neu
+    icons: {
+      // ← neu
       icon: [{ url: '/favicon.ico', sizes: 'any' }],
     },
     openGraph: {

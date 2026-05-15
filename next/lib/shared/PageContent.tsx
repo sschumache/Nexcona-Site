@@ -22,12 +22,12 @@ export default async function PageContent({
   // Locale als top-level Parameter, nicht verschachtelt
   const members = hasTeamGrid
     ? await fetchCollectionType('team-members', {
-        locale,                    // ← direkt, nicht in filters
+        locale, // ← direkt, nicht in filters
         sort: ['order:asc'],
         populate: {
-          image: true,             // ← explizit statt Array
+          image: true, // ← explizit statt Array
         },
-      }).catch(() => [])           // ← kein Crash wenn leer/Fehler
+      }).catch(() => []) // ← kein Crash wenn leer/Fehler
     : [];
 
   const services = hasServiceGrid

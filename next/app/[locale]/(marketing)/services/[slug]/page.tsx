@@ -1,6 +1,6 @@
 import { Metadata } from 'next';
-import { notFound } from 'next/navigation';
 import Image from 'next/image';
+import { notFound } from 'next/navigation';
 
 import ClientSlugHandler from '../../ClientSlugHandler';
 import { Container } from '@/components/container';

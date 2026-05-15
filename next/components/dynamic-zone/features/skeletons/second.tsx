@@ -27,13 +27,9 @@ export const SkeletonTwo = ({
     afterItems?.item_3,
   ].filter(Boolean) as string[];
 
-  const left = before.length
-    ? before
-    : ['Analyse', 'Architektur', 'Umsetzung'];
+  const left = before.length ? before : ['Analyse', 'Architektur', 'Umsetzung'];
 
-  const right = after.length
-    ? after
-    : ['Cloud', 'Security', 'Automation'];
+  const right = after.length ? after : ['Cloud', 'Security', 'Automation'];
 
   return (
     <div className="relative flex items-center justify-center h-full w-full">

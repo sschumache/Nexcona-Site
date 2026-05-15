@@ -10,7 +10,7 @@ import { Article } from '@/types/types';
 
 const t = (locale: string) => ({
   morePosts: locale === 'de' ? 'Weitere Beiträge' : 'More Posts',
-  search:    locale === 'de' ? 'Beiträge suchen' : 'Search articles',
+  search: locale === 'de' ? 'Beiträge suchen' : 'Search articles',
   noResults: locale === 'de' ? 'Keine Ergebnisse gefunden' : 'No results found',
 });
 

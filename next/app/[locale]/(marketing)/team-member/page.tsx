@@ -1,11 +1,11 @@
 import { Metadata } from 'next';
 
 import ClientSlugHandler from '../ClientSlugHandler';
-import { TeamCard } from '@/components/team/team-card';
 import { Container } from '@/components/container';
 import { AmbientColor } from '@/components/decorations/ambient-color';
 import { Heading } from '@/components/elements/heading';
 import { Subheading } from '@/components/elements/subheading';
+import { TeamCard } from '@/components/team/team-card';
 import { fetchCollectionType } from '@/lib/strapi';
 import type { LocaleParamsProps } from '@/types/types';
 
@@ -77,7 +77,9 @@ export default async function TeamMemberPage({ params }: LocaleParamsProps) {
         </div>
 
         <Heading as="h1" size="xl">
-          {locale === 'de' ? 'Menschen hinter Nexcona' : 'People behind Nexcona'}
+          {locale === 'de'
+            ? 'Menschen hinter Nexcona'
+            : 'People behind Nexcona'}
         </Heading>
 
         <Subheading className="mt-6 max-w-2xl mx-auto">
@@ -107,10 +109,11 @@ export default async function TeamMemberPage({ params }: LocaleParamsProps) {
 
       <div className="border-t border-[#E2E2E2] bg-[#F8F9FA]">
         <Container className="py-24">
-
           <div className="text-center mb-16">
             <Heading as="h2" size="xl">
-              {locale === 'de' ? 'Unsere Werte & Säulen' : 'Our Values & Pillars'}
+              {locale === 'de'
+                ? 'Unsere Werte & Säulen'
+                : 'Our Values & Pillars'}
             </Heading>
             <Subheading className="mt-4 max-w-2xl mx-auto">
               {locale === 'de'

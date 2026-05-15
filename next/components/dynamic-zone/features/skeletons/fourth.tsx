@@ -53,10 +53,7 @@ export const SkeletonFour = ({ logos = [] }: { logos?: CmsLogo[] }) => {
   const icons = useMemo<PositionedLogo[]>(() => {
     return logos
       .map((logo, index) => {
-        const imageUrl =
-          logo?.image?.url ||
-          logo?.logo?.url ||
-          logo?.url;
+        const imageUrl = logo?.image?.url || logo?.logo?.url || logo?.url;
 
         if (!imageUrl) return null;
 

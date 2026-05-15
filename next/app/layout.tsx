@@ -1,7 +1,10 @@
 import type { Metadata, Viewport } from 'next';
 import { Suspense } from 'react';
+
 import { i18n } from '@/i18n.config';
+
 import './globals.css';
+
 import { SlugProvider } from '@/app/context/SlugContext';
 import { Preview } from '@/components/preview';
 

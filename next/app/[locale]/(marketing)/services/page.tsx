@@ -1,11 +1,11 @@
 import { Metadata } from 'next';
 
 import ClientSlugHandler from '../ClientSlugHandler';
-import { ServiceCard } from '@/components/services/service-card';
 import { Container } from '@/components/container';
 import { AmbientColor } from '@/components/decorations/ambient-color';
 import { Heading } from '@/components/elements/heading';
 import { Subheading } from '@/components/elements/subheading';
+import { ServiceCard } from '@/components/services/service-card';
 import { fetchCollectionType } from '@/lib/strapi';
 import type { LocaleParamsProps } from '@/types/types';
 

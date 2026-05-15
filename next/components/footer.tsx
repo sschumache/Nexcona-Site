@@ -16,28 +16,32 @@ export const Footer = async ({
         <div className="flex flex-col items-start justify-between gap-12 text-sm text-[#666666] sm:flex-row">
           <div>
             <div className="mb-4 mr-4 md:flex">
-              {data?.logo?.image && <Logo image={data.logo.image} locale={locale} />}
+              {data?.logo?.image && (
+                <Logo image={data.logo.image} locale={locale} />
+              )}
             </div>
 
-            <div className="max-w-xs text-[#666666]">
-              {data?.description}
-            </div>
+            <div className="max-w-xs text-[#666666]">{data?.description}</div>
 
-            <div className="mt-4 text-[#666666]">
-              {data?.copyright}
-            </div>
+            <div className="mt-4 text-[#666666]">{data?.copyright}</div>
           </div>
-            <div className="mt-10">
-              Designed and Developed by{' '}
-              <a className="text-primary-light underline" href="https://nexcona.ch">
-                Nexcona IT GmbH
-              </a>{' '}
-            </div>
+          <div className="mt-10">
+            Designed and Developed by{' '}
+            <a
+              className="text-primary-light underline"
+              href="https://nexcona.ch"
+            >
+              Nexcona IT GmbH
+            </a>{' '}
+          </div>
 
           <div className="grid grid-cols-1 gap-8 sm:grid-cols-3 sm:gap-10">
             <LinkSection links={data?.internal_links ?? []} locale={locale} />
             <LinkSection links={data?.policy_links ?? []} locale={locale} />
-            <LinkSection links={data?.social_media_links ?? []} locale={locale} />
+            <LinkSection
+              links={data?.social_media_links ?? []}
+              locale={locale}
+            />
           </div>
         </div>
       </div>

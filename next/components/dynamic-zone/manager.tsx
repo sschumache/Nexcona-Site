@@ -47,7 +47,7 @@ const componentMapping: { [key: string]: any } = {
     import('./related-articles').then((mod) => mod.RelatedArticles)
   ),
   'dynamic-zone.team-grid': dynamic(() =>
-  import('./team-grid').then((mod) => mod.TeamGrid)
+    import('./team-grid').then((mod) => mod.TeamGrid)
   ),
   'dynamic-zone.service-grid': dynamic(() =>
     import('./service-grid').then((mod) => mod.ServiceGrid)

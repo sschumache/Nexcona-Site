@@ -5,7 +5,7 @@ import { i18n } from '@/i18n.config';
 
 export function proxy(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
-  
+
   const pathnameHasLocale = i18n.locales.some(
     (locale) => pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`
   );

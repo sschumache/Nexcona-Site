@@ -7,14 +7,17 @@ import React from 'react';
 import { cn } from '@/lib/utils';
 
 const localeLabels: Record<string, string> = {
-  'en': 'EN',
-  'de': 'DE',
+  en: 'EN',
+  de: 'DE',
 };
 
-export function LocaleSwitcher({ currentLocale, locales = [] }: { 
+export function LocaleSwitcher({
+  currentLocale,
+  locales = [],
+}: {
   currentLocale: string;
   locales?: string[];
-}) {  
+}) {
   const pathname = usePathname();
 
   const generateLocalizedPath = (locale: string): string => {

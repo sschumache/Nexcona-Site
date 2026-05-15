@@ -12,14 +12,14 @@ import {
   CardTitle,
 } from './card';
 import { FeatureIconContainer } from './feature-icon-container';
+import { SkeletonEight } from './skeletons/eighth';
+import { SkeletonFive } from './skeletons/fifth';
 import { SkeletonOne } from './skeletons/first';
 import { SkeletonFour } from './skeletons/fourth';
 import { SkeletonTwo } from './skeletons/second';
-import { SkeletonThree } from './skeletons/third';
-import { SkeletonFive } from './skeletons/fifth';
-import { SkeletonSix } from './skeletons/sixth';
 import { SkeletonSeven } from './skeletons/seventh';
-import { SkeletonEight } from './skeletons/eighth';
+import { SkeletonSix } from './skeletons/sixth';
+import { SkeletonThree } from './skeletons/third';
 
 function getSpanClass(
   span?: string,
@@ -55,7 +55,6 @@ export const Features = ({
   accordion_card: any;
   business_value_card: any;
 }) => {
-
   // 🔍 DEBUG: schauen ob Daten überhaupt ankommen
   console.log('Features data:', {
     globe_card,
@@ -167,7 +166,9 @@ export const Features = ({
                 <SkeletonEight items={business_value_card?.items} />
               </CardSkeletonContainer>
               <CardTitle>{business_value_card.title}</CardTitle>
-              <CardDescription>{business_value_card.description}</CardDescription>
+              <CardDescription>
+                {business_value_card.description}
+              </CardDescription>
             </Card>
           )}
         </div>

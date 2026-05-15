@@ -1,8 +1,8 @@
 import { Metadata } from 'next';
 import { redirect } from 'next/navigation';
 
-import { Container } from '@/components/container';
 import ClientSlugHandler from '../../ClientSlugHandler';
+import { Container } from '@/components/container';
 import { AmbientColor } from '@/components/decorations/ambient-color';
 import DynamicZoneManager from '@/components/dynamic-zone/manager';
 import { SingleProduct } from '@/components/products/single-product';

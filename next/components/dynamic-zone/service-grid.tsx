@@ -12,7 +12,12 @@ type Props = {
   locale: string;
 };
 
-export const ServiceGrid = ({ title, subtitle, services = [], locale }: Props) => {
+export const ServiceGrid = ({
+  title,
+  subtitle,
+  services = [],
+  locale,
+}: Props) => {
   return (
     <Container className="py-24">
       {(title || subtitle) && (

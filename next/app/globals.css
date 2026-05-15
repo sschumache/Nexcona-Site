@@ -48,15 +48,26 @@ body {
    TYPOGRAPHY
 ========================= */
 @layer base {
-  h1, h2, h3, h4, h5, h6 {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
     font-family: var(--font-heading);
     color: var(--color-dark);
     letter-spacing: -0.02em;
   }
 
-  h1 { @apply text-4xl md:text-6xl font-bold leading-tight; }
-  h2 { @apply text-3xl md:text-5xl font-bold leading-tight; }
-  h3 { @apply text-2xl md:text-3xl font-semibold; }
+  h1 {
+    @apply text-4xl md:text-6xl font-bold leading-tight;
+  }
+  h2 {
+    @apply text-3xl md:text-5xl font-bold leading-tight;
+  }
+  h3 {
+    @apply text-2xl md:text-3xl font-semibold;
+  }
 
   p {
     @apply leading-relaxed text-[#666666];
@@ -71,7 +82,6 @@ body {
    COMPONENTS
 ========================= */
 @layer components {
-
   /* Layout */
   .nexcona-container {
     @apply mx-auto w-full max-w-7xl px-6 lg:px-8;
@@ -95,40 +105,40 @@ body {
   /* Standard Button (dein Wunsch) */
   .btn {
     @apply inline-flex items-center justify-center rounded-full px-6 py-3 text-sm font-semibold transition;
-    background: #E2E2E2;
-    color: #2B2B2B;
+    background: #e2e2e2;
+    color: #2b2b2b;
   }
 
   .btn:hover {
-    background: #2B2B2B;
-    color: #FFFFFF;
+    background: #2b2b2b;
+    color: #ffffff;
   }
 
   /* Optional: Brand CTA */
   .btn-primary {
     @apply inline-flex items-center justify-center rounded-full px-6 py-3 text-sm font-semibold text-white transition;
-    background: #003F6B;
+    background: #003f6b;
   }
 
   .btn-primary:hover {
-    background: #306B8C;
+    background: #306b8c;
   }
 
   /* Secondary / Ghost */
   .btn-ghost {
     @apply inline-flex items-center justify-center rounded-full px-6 py-3 text-sm font-semibold transition;
-    color: #2B2B2B;
+    color: #2b2b2b;
   }
 
   .btn-ghost:hover {
-    background: #E2E2E2;
+    background: #e2e2e2;
   }
 
   /* Label / Eyebrow */
   .eyebrow {
     @apply inline-flex px-4 py-1 text-xs font-semibold uppercase tracking-widest rounded-full;
-    background: #E2E2E2;
-    color: #2B2B2B;
+    background: #e2e2e2;
+    color: #2b2b2b;
   }
 }
 

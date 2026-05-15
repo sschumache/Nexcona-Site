@@ -1,4 +1,5 @@
 'use client';
+
 import React, { useState } from 'react';
 
 export const SkeletonSeven = ({ items }: { items?: any[] }) => {
@@ -21,9 +22,7 @@ export const SkeletonSeven = ({ items }: { items?: any[] }) => {
             </div>
 
             {isOpen && (
-              <p className="text-xs text-gray-500 mt-2">
-                {item?.description}
-              </p>
+              <p className="text-xs text-gray-500 mt-2">{item?.description}</p>
             )}
           </div>
         );
