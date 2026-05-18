@@ -1,0 +1,24 @@
+{
+  "collectionName": "components_cards_tech_stack_cards",
+  "info": {
+    "displayName": "Tech_Stack_Card",
+    "icon": "apps"
+  },
+  "options": {},
+  "attributes": {
+    "titel": {
+      "type": "string",
+      "required": true
+    },
+    "subtitle": {
+      "type": "string",
+      "required": true
+    },
+    "logos": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::logo.logo"
+    }
+  },
+  "config": {}
+}

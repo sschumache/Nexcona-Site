@@ -11,6 +11,11 @@
     "subtitle": {
       "type": "text"
     },
+    "crews": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::crew.crew"
+    },
     "limit": {
       "type": "integer",
       "default": 6
