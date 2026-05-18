@@ -8,11 +8,11 @@ import { TeamCard } from '@/components/team/team-card';
 type Props = {
   title?: string;
   subtitle?: string;
-  members?: any[];
+  crews?: any[];
   locale: string;
 };
 
-export const TeamGrid = ({ title, subtitle, members = [], locale }: Props) => {
+export const TeamGrid = ({ title, subtitle, crews = [], locale }: Props) => {
   return (
     <Container className="py-24">
       {(title || subtitle) && (
@@ -30,7 +30,7 @@ export const TeamGrid = ({ title, subtitle, members = [], locale }: Props) => {
         </div>
       )}
       <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
-        {members.map((member) => (
+        {crews.map((member) => (
           <TeamCard key={member.id} member={member} />
         ))}
       </div>

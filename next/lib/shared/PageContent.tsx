@@ -19,8 +19,8 @@ export default async function PageContent({
     (component: any) => component.__component === 'dynamic-zone.service-grid'
   );
 
-  const members = hasTeamGrid
-    ? await fetchCollectionType('team-members', {
+  const crews = hasTeamGrid
+    ? await fetchCollectionType('crews', {
         locale,
         sort: ['order:asc'],
         populate: {
@@ -38,7 +38,7 @@ export default async function PageContent({
 
   const enrichedDynamicZone = dynamicZone.map((component: any) => {
     if (component.__component === 'dynamic-zone.team-grid') {
-      return { ...component, members };
+      return { ...component, crews };
     }
     if (component.__component === 'dynamic-zone.service-grid') {
       return { ...component, services };
@@ -46,14 +46,13 @@ export default async function PageContent({
     return component;
   });
 
-  // Debug logs
   console.log(
     'Dynamic Zone Components:',
     dynamicZone.map((c: any) => c.__component)
   );
   console.log('Has TeamGrid:', hasTeamGrid);
   console.log('Has ServiceGrid:', hasServiceGrid);
-  console.log('Members count:', (members as any[]).length);
+  console.log('Crews count:', (crews as any[]).length);
   console.log('Services count:', (services as any[]).length);
 
   return (
