@@ -1,0 +1,46 @@
+{
+  "kind": "collectionType",
+  "collectionName": "crews",
+  "info": {
+    "singularName": "crew",
+    "pluralName": "crews",
+    "displayName": "Crew"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "role": {
+      "type": "string",
+      "required": true
+    },
+    "description": {
+      "type": "richtext"
+    },
+    "image": {
+      "type": "media",
+      "multiple": true,
+      "required": true,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "linkedin": {
+      "type": "string"
+    },
+    "creedal": {
+      "type": "string"
+    },
+    "order": {
+      "type": "integer"
+    }
+  }
+}

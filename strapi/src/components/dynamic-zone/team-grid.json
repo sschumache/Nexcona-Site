@@ -11,11 +11,6 @@
     "subtitle": {
       "type": "text"
     },
-    "team_members": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::team-member.team-member"
-    },
     "limit": {
       "type": "integer",
       "default": 6

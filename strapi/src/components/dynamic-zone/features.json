@@ -14,52 +14,39 @@
       "type": "string"
     },
     "globe_card": {
-      "displayName": "Globe",
       "type": "component",
-      "repeatable": false,
-      "component": "cards.globe-card"
+      "component": "cards.globe-card",
+      "repeatable": false
     },
     "ray_card": {
-      "displayName": "Ray",
       "type": "component",
-      "repeatable": false,
-      "component": "cards.ray-card"
+      "component": "cards.ray-card",
+      "repeatable": false
     },
     "graph_card": {
-      "displayName": "Graph",
       "type": "component",
-      "repeatable": false,
-      "component": "cards.graph-card"
+      "component": "cards.graph-card",
+      "repeatable": false
     },
     "social_media_card": {
-      "displayName": "Graph",
       "type": "component",
-      "repeatable": false,
-      "component": "cards.social-media-card"
-    },
-    "tech_stack_card": {
-      "displayName": "Tech Stack",
-      "type": "component",
-      "repeatable": false,
-      "component": "cards.tech-stack-card"
+      "component": "cards.social-media-card",
+      "repeatable": false
     },
     "slider_card": {
-      "displayName": "Slider",
       "type": "component",
-      "repeatable": false,
-      "component": "cards.slider-card"
+      "component": "cards.slider-card",
+      "repeatable": false
     },
     "accordion_card": {
-      "displayName": "Accordion",
       "type": "component",
-      "repeatable": false,
-      "component": "cards.accordion-card"
+      "component": "cards.accordion-card",
+      "repeatable": false
     },
     "business_value_card": {
-      "displayName": "Business Value",
       "type": "component",
-      "repeatable": false,
-      "component": "cards.business-value-card"
+      "component": "cards.business-value-card",
+      "repeatable": false
     }
   }
 }

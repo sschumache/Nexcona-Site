@@ -106,21 +106,6 @@ export interface CardsSocialMediaCard extends Struct.ComponentSchema {
   };
 }
 
-export interface CardsTechStackCard extends Struct.ComponentSchema {
-  collectionName: 'components_cards_tech_stack_cards';
-  info: {
-    description: '';
-    displayName: 'Tech_Stack_Card';
-    icon: 'cog';
-  };
-  attributes: {
-    description: Schema.Attribute.Text;
-    logos: Schema.Attribute.Relation<'oneToMany', 'api::logo.logo'>;
-    span: Schema.Attribute.Enumeration<['one', 'two', 'three']>;
-    title: Schema.Attribute.String;
-  };
-}
-
 export interface DynamicZoneBrands extends Struct.ComponentSchema {
   collectionName: 'components_dynamic_zone_brands';
   info: {
@@ -185,7 +170,6 @@ export interface DynamicZoneFeatures extends Struct.ComponentSchema {
       false
     >;
     sub_heading: Schema.Attribute.String;
-    tech_stack_card: Schema.Attribute.Component<'cards.tech-stack-card', false>;
   };
 }
 
@@ -327,10 +311,6 @@ export interface DynamicZoneTeamGrid extends Struct.ComponentSchema {
   attributes: {
     limit: Schema.Attribute.Integer & Schema.Attribute.DefaultTo<6>;
     subtitle: Schema.Attribute.Text;
-    team_members: Schema.Attribute.Relation<
-      'oneToMany',
-      'api::team-member.team-member'
-    >;
     title: Schema.Attribute.String;
   };
 }
@@ -679,7 +659,6 @@ declare module '@strapi/strapi' {
       'cards.ray-card': CardsRayCard;
       'cards.slider-card': CardsSliderCard;
       'cards.social-media-card': CardsSocialMediaCard;
-      'cards.tech-stack-card': CardsTechStackCard;
       'dynamic-zone.brands': DynamicZoneBrands;
       'dynamic-zone.cta': DynamicZoneCta;
       'dynamic-zone.faq': DynamicZoneFaq;
